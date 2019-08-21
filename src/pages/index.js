@@ -1,3 +1,4 @@
 import React from "react"
+import { Link } from "gatsby"
 
-export default () => <div>Hello world!</div>
+export default () => <Link to="/cohortclass">Go to the CohortClass</Link>
