@@ -26,8 +26,10 @@
     "gatsby-plugin-styled-components": "^3.1.2",
     "graphql": "^14.4.2",
     "lodash": "^4.17.15",
+    "massive": "^5.11.2",
     "node-pg-migrate": "^3.22.0",
     "pg": "^7.12.1",
+    "pg-promise": "^9.1.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
   },

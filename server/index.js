@@ -1,15 +1,35 @@
 const express = require('express');
 const graphQLHTTP = require('express-graphql');
 const schema = require('./schema');
-const app = express();
+//const massive = require('massive');
 
 
-app.use('/graphql', graphQLHTTP({
-    schema,
-    graphiql: true,
-}));
+/*massive({
+    host: 'localhost',
+    port: 5432,
+    database: 'handraiser',
+    user: 'postgres',
+    password: 'handraiser',
+}).then(db => { */
 
-const PORT = 3000;
-app.listen(PORT, ()=>{console.log(`Now listening (/◕ヮ◕)/ @ ${PORT}`)})
+    const app = express();
+ //   app.set('db', db);
+    app.use(express.json());
+    app.use('/graphql', graphQLHTTP({
+        schema,
+        graphiql: true,
+    }));
+
+    const PORT = 3000;
+    app.listen(PORT, ()=>{
+        console.log(`
+        +++++++++++++++++++++++++++++++
+        Now listening (/◕ヮ◕)/ @ ${PORT}
+        +++++++++++++++++++++++++++++++
+        `)
+    })
+
+//})
+
 
 
