@@ -1,15 +1,12 @@
 import React from "react";
-import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import DirectionsIcon from '@material-ui/icons/Directions';
-import {BoxMain, BoxCont, SearchBoxNav, SearchBar} from "../style/cohortDesign";
+import {BoxMain, BoxCont, SearchBoxNav} from "../style/cohortDesign";
 
 
 export default class CohortClass extends React.Component {

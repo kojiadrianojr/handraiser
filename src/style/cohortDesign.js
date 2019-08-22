@@ -63,8 +63,3 @@ export const SearchBoxNav = styled.div`
     position: relative;
     margin: auto auto;
 `;
-
-export const SearchBar = styled.input`
-    height: 30px;
-    width: 300px;
-`;
