@@ -44,11 +44,11 @@ export default class CohortClass extends React.Component {
                     <BoxMain>
                         {/*
                             If the result/data is empty
-                        <Typography variant="h4" style={{color: '#1f1e1c'}}>Empty!</Typography> 
+                            <Typography variant="h4" style={{color: '#1f1e1c'}}>Empty!</Typography> 
                         */}
                         {/* 
                             If the result/data is loading
-                        <CircularProgress />
+                            <CircularProgress />
                         */}
                         <BoxCont>
                             <Typography variant="h6">
@@ -67,7 +67,7 @@ export default class CohortClass extends React.Component {
                         </BoxCont>
                         <BoxCont>
                             <Typography variant="h6">
-                                Jihad Cohort 2019
+                                Anti-anti Cohort 2019
                             </Typography>
                         </BoxCont>
                     </BoxMain>
@@ -76,9 +76,3 @@ export default class CohortClass extends React.Component {
         )
     }
 }
-
-{/* <TextField
-                        label="Search field"
-                        type="search"
-                        margin="normal"
-                    /> */}
