@@ -23,17 +23,22 @@ const device = {
     desktopL: `(max-width: ${size.desktop})`
 };
 
+export const MainContainer = styled.div`
+    max-width: 1024px;
+    position: relative;
+    margin: auto auto;
+`;
+
 export const BoxMain = styled.div`
     position: relative;
     margin: auto auto;
-    max-width: 1024px;
+    width: 100%;
     height: auto;
     padding-bottom: 20px;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     text-align: center;
-
     @media ${device.laptopS} {
         flex-direction: column;
         align-items: center;
@@ -44,7 +49,7 @@ export const BoxCont = styled.div`
     color: #1f1e1c;
     height: auto;
     width: 300px;
-    padding: 5px;
+    padarchBoxNavding: 5px;
     box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
     background-color: #9cf196;
     border-radius: 4px;
@@ -55,11 +60,24 @@ export const BoxCont = styled.div`
 `;
 
 export const SearchBoxNav = styled.div`
-    max-width: 1024px;
-    height: 100px; 
+    width: 100%;
+    min-height: 100px;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     margin: auto auto;
+`;
+
+export const ResultNav = styled.div`
+    position: relative;
+    margin: auto auto;
+    width: 300px;
+    min-height: 50px;
+    height: auto;
+    color: #777;
+    @media ${device.mobileS} {
+        width: 100%;
+    }
 `;
