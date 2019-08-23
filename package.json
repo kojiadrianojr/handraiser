@@ -10,14 +10,23 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \""
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \"",
+    "db:start": "docker-compose up -d db",
+    "db:stop": "docker-compose down",
+    "migrate": "node-pg-migrate"
   },
   "dependencies": {
     "@material-ui/core": "^4.3.2",
     "@material-ui/icons": "^4.2.1",
     "@material-ui/styles": "^4.3.0",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
     "gatsby": "^2.13.70",
     "gatsby-plugin-styled-components": "^3.1.2",
+    "graphql": "^14.4.2",
+    "massive": "^5.11.2",
+    "node-pg-migrate": "^3.22.0",
+    "pg": "^7.12.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
   },
