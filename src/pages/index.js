@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import logo from "./../img/logo-cropped.png";
