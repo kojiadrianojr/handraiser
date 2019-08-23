@@ -1,5 +1,5 @@
-//const axios = require('axios');
-//const _= require('lodash');
+//?const axios = require('axios');
+//?const _= require('lodash');
 
 //! Unfinished Scheme for using GraphQL
 
@@ -21,19 +21,6 @@ const {
     GraphQLInt,
     GraphQLList,
 } = require('graphql');
-
-//? Dummy data
-/*
-var users = [
-    {username: 'username1',password: 'password1', email: 'user1@email',uid: '1'},
-    {username: 'username2',password: 'password2', email: 'user2@email',uid: '2'},
-    {username: 'username3',password: 'password3', email: 'user3@email',uid: '3'},
-]
-
-var Users = [
-    {first_name: 'name', last_name: 'last', image: 'image', email: 'email'}
-]
-*/
 
 const UserType = new GraphQLObjectType({
     name: 'User',
@@ -81,15 +68,6 @@ const QueueType = new  GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
-        /** 
-        user: { 
-            type: UserType,
-            args: {uid:{type: GraphQLID}},
-            resolve(parent,args){
-            return  user
-            }
-        },
-         */
         users: {
             type: new GraphQLList(UserType),
             resolve(parent,args){
