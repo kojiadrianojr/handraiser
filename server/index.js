@@ -1,34 +1,34 @@
-var express = require("express");
-var graphqlHTTP = require("express-graphql");
-var { buildSchema } = require("graphql");
+const express = require('express');
+const graphQLHTTP = require('express-graphql');
+const schema = require('./schema');
+const jwt = require('express-jwt');
 
-// Construct a schema, using GraphQL schema language
-var schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`);
+const app = express();
+app.use(express.json());
 
-// The root provides a resolver function for each API endpoint
-var root = {
-  hello: () => {
-    return "Hello world!";
-  }
-};
+const authMiddleware = jwt({
+    secret: '53cR3tc0d34AnDr@i53r'
+})
+app.use(authMiddleware)
 
-var app = express();
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema: schema,
-    rootValue: root,
-    graphiql: true
-  })
-);
+app.use('/graphql', graphQLHTTP(req => ({
+    schema,
+    graphiql: true,
+    context: {
+        user: req.user
+    }
+})));
 
-const PORT = 3001;
-app.listen(PORT, () => {
-  console.log("-------------------------------------");
-  console.log(`Server listening ( ͡° ͜ʖ ͡°)on port ${PORT}`);
-  console.log("-------------------------------------");
+const PORT = 3000;
+app.listen(PORT, ()=>{
+   console.log(`
+    +++++++++++++++++++++++++++++++
+    Now listening (/◕ヮ◕)/ @ ${PORT}
+    +++++++++++++++++++++++++++++++
+    `)
 });
+
+
+
+
+
