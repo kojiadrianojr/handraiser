@@ -63,9 +63,16 @@ export default ({classList, user, id, help}) => {
                     Hello {user.name}!
                     <span>
                         {(!help && id) ?
-                            <button onClick={needHelp}>I need help!</button>
+                            <button onClick={e => {
+                                needHelp()
+                                e.target.setAttribute('disabled', 'true')
+                            }}>I need help!</button>
                         : help ? null 
-                        : id ? <button onClick={needHelp}>I need help!</button> : null
+                        : id ? <button onClick={e => {
+                                needHelp()
+                                e.target.setAttribute('disabled', 'true')
+                            }}>I need help!</button>
+                         : null
                         }
                     </span>
                 </Grid>
