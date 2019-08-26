@@ -1,38 +1,51 @@
-import React from "react";
-import { GoogleLogin, GoogleLogout } from "react-google-login";
-import logo from "./../img/logo-cropped.png";
-import "./index.css";
-//material ui
-import Grid from "@material-ui/core/Grid";
+import React, { useEffect } from "react"
+import gql from "graphql-tag"
+import { useSubscription } from "react-apollo-hooks"
+import { navigate } from 'gatsby'
 
-const responseGoogle = response => {
-  console.log(response);
-};
+const GET_USERS = gql`
+  subscription {
+    users {
+      email
+      givenName
+      familyName
+      googleId
+      imageUrl
+      name
+      type
+    }
+  }
+`
 
-export default () => (
-  <Grid container className="container">
-    <Grid item className="item">
-      <img src={logo} alt="logo" />
-      <div className="text">
-        <p className="signup">Sign In</p>
-        <p>Use Your Google Account</p>
-      </div>
-      <GoogleLogin
-        className="Login"
-        clientId="28861163542-su8up622bc6br2c077qgaqp380g4m9k3.apps.googleusercontent.com"
-        buttonText="Login"
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
-        cookiePolicy={"single_host_origin"}
-      />
-    </Grid>
-  </Grid>
-);
+const Users = () => {
+  const { data, loading, error } = useSubscription(GET_USERS, {
+    suspend: false,
+  })
 
-{
-  /* <GoogleLogout
-      clientId="28861163542-su8up622bc6br2c077qgaqp380g4m9k3.apps.googleusercontent.com"
-      buttonText="Logout"
-      onLogoutSuccess={() => console.log("logged out")}
-    ></GoogleLogout> */
+  if(loading) {
+    return <p>Loading..</p>
+  }
+  
+  if(error) {
+    return <pre>{JSON.stringify(error, null, 2)}></pre>
+  }
+
+  return (
+    <div>
+      {data.users.map(user => (
+        <h2>{user.name}</h2>  
+      ))}
+    </div>
+  )
+}
+
+export default () => {
+  useEffect(()=>{
+    navigate('/sign-in/')
+  }, [])
+  return (
+    <>
+      <Users />
+    </>
+  )
 }
