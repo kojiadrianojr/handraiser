@@ -5,6 +5,8 @@ import './style.css'
 import styled from "styled-components"
 import gql from "graphql-tag"
 import { useSubscription } from "react-apollo-hooks"
+import {Box, Grid} from '@material-ui/core'
+
 
 const GET_CLASSES = gql`
     subscription {
@@ -15,6 +17,7 @@ const GET_CLASSES = gql`
         }
     }
 `
+
 
 const Container = styled.div`
     div > div.banner-msg {
@@ -30,6 +33,8 @@ const style = {
     }
   };
 
+
+
 function Cohorts(props) {
   const { data, loading } = useSubscription(GET_CLASSES, {
     suspend: false,
@@ -42,18 +47,28 @@ function Cohorts(props) {
   if(!props.location.state) {
     navigate('/sign-in/')
   }
-
+  const dataInfo = data.class
   return (
-    <Container>
+    <Box>
       {props.location.state ? (
-        <div className="container" >
+        <Box>
           <Header classList={data.class} user={props.location.state} />
           <div className="banner-msg" style={style.body}>
             <h1>Select a cohort to enter classroom</h1>
+            <Grid container style={{border: '1px solid black'}} >
+              { 
+                 dataInfo.map((data)=>(
+                   <Grid item key={data.class_id}>
+                     {data.class_name}
+                   </Grid>
+                 ))
+              }
+            </Grid>
+          
           </div>
-        </div>
+        </Box>
       ) : null}
-    </Container>
+    </Box>
   );
 }
 

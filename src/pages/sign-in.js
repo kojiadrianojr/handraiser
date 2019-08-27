@@ -11,7 +11,8 @@ import DialogActions from '@material-ui/core/DialogActions'
 import logo from './../img/logo.png'
 import './style.css'
 import Grid from "@material-ui/core/Grid";
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const GET_USERS = gql`
   subscription {
     users {
@@ -27,6 +28,7 @@ const GET_USERS = gql`
 `
 
 const SignIn = () => {
+  const signInMsg = () => toast.success('Logged in!')
   const { data } = useSubscription(GET_USERS, {
     suspend: false,
   })
@@ -92,6 +94,7 @@ const SignIn = () => {
     var found = null;
     found = data.users.find(user => user.googleId === res.profileObj.googleId)
     if(found) {
+      signInMsg()
       navigate('/cohorts', {
         state: found
       })
