@@ -8,16 +8,16 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: space-around;
   padding: 1rem;
-  max-width: 1000px;
+  max-width: 800px;
   margin: auto auto;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 800px) {
     flex-direction: column;
   }
 `;
 
 const Card = styled.div`
-  @media (max-width: 1000px) {
+  @media (max-width: 800px) {
     width: 100%;
     margin-bottom: 24px;
   }
@@ -87,12 +87,12 @@ const Body = styled.div`
           margin-right: 0;
         }
 
-        @media (max-width: 1000px) {
+        @media (max-width: 800px) {
           button.lg {
             display: none;
           }
         }
-        @media (min-width: 721px) {
+        @media (min-width: 801px) {
           button.sm {
             display: none;
           }
