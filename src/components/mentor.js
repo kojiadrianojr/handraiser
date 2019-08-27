@@ -8,16 +8,15 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: space-around;
   padding: 1rem;
-  max-width: 1000px;
   margin: auto auto;
 
-  @media (max-width: 720px) {
+  @media (max-width: 1000px) {
     flex-direction: column;
   }
 `;
 
 const Card = styled.div`
-  @media (max-width: 720px) {
+  @media (max-width: 1000px) {
     width: 100%;
     margin-bottom: 24px;
   }
@@ -113,7 +112,7 @@ const Body = styled.div`
           margin-right: 0;
         }
 
-        @media (max-width: 720px) {
+        @media (max-width: 1000px) {
           button.lg {
             display: none;
           }
