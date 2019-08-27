@@ -117,7 +117,7 @@ const Body = styled.div`
             display: none;
           }
         }
-        @media (min-width: 721px) {
+        @media (min-width: 1001px) {
           button.sm {
             display: none;
           }
