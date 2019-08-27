@@ -6,6 +6,7 @@ import { Dialog, Button } from '@material-ui/core'
 import gql from "graphql-tag"
 import { useSubscription } from "react-apollo-hooks"
 import gif from '../asset/handraise.gif'
+import DialogActions from '@material-ui/core/DialogActions'
 
 const GET_USERS = gql`
   subscription {
@@ -123,14 +124,14 @@ const SignIn = () => {
           cookiePolicy={'single_host_origin'}
         />
         <Dialog open={modal} onClose={()=>setModal(false)}>
-          <div>
-            <Button onClick={()=>{
+          <DialogActions style={{padding: '30px 20px'}}>
+            <Button variant="contained" color="primary" onClick={()=>{
               signUp('student')
-            }}>Student</Button>
-            <Button onClick={()=>{
+            }}>I am a student!</Button>
+            <Button variant="contained" color="primary" onClick={()=>{
               signUp('mentor')
-            }}>Mentor</Button>
-          </div>
+            }}>I am a mentor!</Button>
+          </DialogActions>
         </Dialog>
       </div>
     </div>
