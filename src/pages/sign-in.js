@@ -8,6 +8,10 @@ import { useSubscription } from "react-apollo-hooks"
 import gif from '../asset/handraise.gif'
 import DialogActions from '@material-ui/core/DialogActions'
 
+import logo from './../img/logo.png'
+import './style.css'
+import Grid from "@material-ui/core/Grid";
+
 const GET_USERS = gql`
   subscription {
     users {
@@ -100,41 +104,23 @@ const SignIn = () => {
 
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${gif})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        height: '100vh'
-      }}
-    >
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 180,
-      }}>
-        <h1 style={{color: 'white', fontSize: 70, fontWeight: 10, letterSpacing: 16}}>Handraise</h1>
-        <GoogleLogin 
-          clientId="28861163542-su8up622bc6br2c077qgaqp380g4m9k3.apps.googleusercontent.com"
-          buttonText="Login"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy={'single_host_origin'}
-        />
-        <Dialog open={modal} onClose={()=>setModal(false)}>
-          <DialogActions style={{padding: '30px 20px'}}>
-            <Button variant="contained" color="primary" onClick={()=>{
-              signUp('student')
-            }}>I am a student!</Button>
-            <Button variant="contained" color="primary" onClick={()=>{
-              signUp('mentor')
-            }}>I am a mentor!</Button>
-          </DialogActions>
-        </Dialog>
+    <Grid container className="container">
+    <Grid item className="item">
+      <img src={logo} alt="logo" />
+      <div className="text">
+        <p className="signup">Sign In</p>
+        <p>Use Your Google Account</p>
       </div>
-    </div>
+      <GoogleLogin
+        className="Login"
+        clientId="28861163542-su8up622bc6br2c077qgaqp380g4m9k3.apps.googleusercontent.com"
+        buttonText="Login"
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle}
+        cookiePolicy={"single_host_origin"}
+      />
+    </Grid>
+    </Grid>
   )
 }
 
