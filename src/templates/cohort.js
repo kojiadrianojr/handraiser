@@ -39,6 +39,7 @@ const GET_USERS = gql`
 
 export default function Cohort(props) {
 
+  console.log(props)
   if(!props.location.state) {
     navigate('/sign-in/')
   }

@@ -3,6 +3,18 @@ import Header from "../components/header";
 import { graphql, navigate } from "gatsby";
 import './style.css'
 import styled from "styled-components"
+import gql from "graphql-tag"
+import { useSubscription } from "react-apollo-hooks"
+
+const GET_CLASSES = gql`
+    subscription {
+        class {
+        class_id
+        class_name
+        date_created
+        }
+    }
+`
 
 const Container = styled.div`
     div > div.banner-msg {
@@ -19,6 +31,13 @@ const style = {
   };
 
 function Cohorts(props) {
+  const { data, loading } = useSubscription(GET_CLASSES, {
+    suspend: false,
+  })
+  
+  if(loading){
+    return <p>Loading</p>
+  }
 
   if(!props.location.state) {
     navigate('/sign-in/')
@@ -28,10 +47,7 @@ function Cohorts(props) {
     <Container>
       {props.location.state ? (
         <div className="container" >
-          <Header
-            classList={props.data.demo.class}
-            user={props.location.state}
-          />
+          <Header classList={data.class} user={props.location.state} />
           <div className="banner-msg" style={style.body}>
             <h1>Select a cohort to enter classroom</h1>
           </div>

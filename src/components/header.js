@@ -22,6 +22,11 @@ const handleClassChange = (val, user) => {
 }
 
 export default ({classList, user, id, help}) => {
+
+    if(!user.name) {
+        navigate('/sign-in/')
+    }
+
     const needHelp = () => {
         const body = {
             query: `
@@ -60,19 +65,22 @@ export default ({classList, user, id, help}) => {
                     </select>
                 </Grid>
                 <Grid item xs={4} style={{textAlign: 'center'}}>
-                    Hello {user.name}!
+                    Hello {user.type==="mentor" && "Mentor"} {user.name}!
                     <span>
-                        {(!help && id) ?
-                            <button onClick={e => {
-                                needHelp()
-                                e.target.setAttribute('disabled', 'true')
-                            }}>I need help!</button>
-                        : help ? null 
-                        : id ? <button onClick={e => {
-                                needHelp()
-                                e.target.setAttribute('disabled', 'true')
-                            }}>I need help!</button>
-                         : null
+                        {
+                            user.type==="mentor" ? null
+                            : (!help && id) ?
+                                <button onClick={e => {
+                                    needHelp()
+                                    e.target.setAttribute('disabled', 'true')
+                                }}>I need help!</button>
+                            : help ? null 
+                            : id ? 
+                                <button onClick={e => {
+                                    needHelp()
+                                    e.target.setAttribute('disabled', 'true')
+                                }}>I need help!</button>
+                             : null
                         }
                     </span>
                 </Grid>
