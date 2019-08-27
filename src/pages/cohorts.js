@@ -18,7 +18,6 @@ const GET_CLASSES = gql`
 
 const Container = styled.div`
     div > div.banner-msg {
-        height: 100%;
     }
 `
 const style = {

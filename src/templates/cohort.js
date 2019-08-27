@@ -8,11 +8,9 @@ import { useSubscription } from "react-apollo-hooks";
 import styled from "styled-components";
 
 const Container = styled.div`
-    border: 1px dotted red;
-    height: 100%;
-    div > div {
-        boder: 1px dotted red;
-    }
+`;
+
+const Body = styled.div`
 `;
 
 const GET_USERS = gql`
@@ -58,21 +56,21 @@ export default function Cohort(props) {
     que => que.user.googleId === props.location.state.googleId
   );
   return (
-    <div>
+    <Container>
       <Header
         classList={props.data.demo.class}
         user={props.location.state}
         id={cohort.class_id}
         help={found}
       />
-      <Container>
+      <Body>
         {props.location.state.type === "student" ? (
           <Student queueData={queueData} user={props.location.state} />
         ) : (
           <Mentor queueData={queueData} user={props.location.state} />
         )}
-      </Container>
-    </div>
+      </Body>
+    </Container>
   );
 }
 
