@@ -1,12 +1,14 @@
 import React from "react";
 import Header from "../components/header";
+import CohortClass from "../components/cohortclass";
 import { graphql, navigate } from "gatsby";
 import './style.css'
-import styled from "styled-components"
+import styled from "styled-components";
 
 const Container = styled.div`
     div > div.banner-msg {
-        height: 100%;
+        position: relative;
+        top: 30px;
     }
 `
 const style = {
@@ -33,7 +35,10 @@ function Cohorts(props) {
             user={props.location.state}
           />
           <div className="banner-msg" style={style.body}>
-            <h1>Select a cohort to enter classroom</h1>
+            <CohortClass 
+              classList={props.data.demo.class}
+              user={props.location.state}
+            />
           </div>
         </div>
       ) : null}
