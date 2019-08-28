@@ -9,7 +9,7 @@ import logo from "../assets/logo-cropped.png";
 import Grid from "@material-ui/core/Grid";
 import "./style.css";
 
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const GET_USERS = gql`
   subscription {
@@ -26,10 +26,20 @@ const GET_USERS = gql`
 `;
 
 const SignIn = () => {
-  const signInMsg = () => toast.success('Logged in!')
+  toast.configure({
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+  })
+  const signInMsg = () => toast.success(' 🐨 Logged in!')
   const { data } = useSubscription(GET_USERS, {
     suspend: false
   });
+
+
 
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState({});

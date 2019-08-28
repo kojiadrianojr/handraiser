@@ -1,45 +1,63 @@
-import React from 'react'
-import Grid from '@material-ui/core/Grid'
+import React from 'react';
+import {HeaderStyle, DividerHead} from '../css/style';
+import AppBar from '@material-ui/core/AppBar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import LogoutIcon from '@material-ui/icons/ExitToApp'
 import { navigate } from 'gatsby'
 import { GoogleLogout } from 'react-google-login'
-import axios from 'axios'
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-const style = {
-    con: {
-        padding: '20px',
-        backgroundColor: '#333',
-        color: 'white',
-    }
-}
-
-const handleClassChange = (val, user) => {
-    if(val==="null"){
-        navigate('/cohorts', { state: user})
-    }else{
-        navigate(`/cohorts/${val}`, { state: user})
-    }
-}
+import axios from 'axios';
+import {toast } from 'react-toastify'
 
 toast.configure({
-    autoClose: 8000,
-    draggable: false,
-  })
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+})
 
-export default ({classList, user, id, help}) => {
+export default class Header extends React.Component {
+    constructor(props) {
+        super(props);
 
-    if(!user.name) {
-        navigate('/sign-in/')
+        this.state = {
+            toggleMenu: null,
+        }
+    }
+    showToast = (msg,type) => {
+        toast[`${type}`](` 🐨 ${msg}`)
     }
 
-    const signOutMsg = () => toast.success('Logged out!')
+    handleMenu = (event) => {
+        this.setState({
+            toggleMenu: event.currentTarget,
+        })
+    }
 
-    const needHelp = () => {
+    handleClose = () => {
+        this.setState({
+            toggleMenu: null,
+        })
+    }
+
+    handleClassChange = (val, user) => {
+        if(val==="null"){
+            navigate('/cohorts', { state: user})
+        }else{
+            navigate(`/cohorts/${val}`, { state: user})
+        }
+    }
+ 
+    needHelp = () => {
         const body = {
             query: `
             mutation {
-                insert_queue(objects: {class_id: "${id}", status: "need help", user_id: "${user.googleId}"}) {
+                insert_queue(objects: {class_id: "${this.props.id}", status: "need help", user_id: "${this.props.user.googleId}"}) {
                     returning {
                     id
                     }
@@ -56,57 +74,59 @@ export default ({classList, user, id, help}) => {
             .post('https://hasura-gatsby-demo.herokuapp.com/v1/graphql', body, options)
     }
 
-    return (
-        <div >
-            <Grid container style={style.con} >
-                <Grid item xs={4}>
-                    <select style={{maxWidth: 200}} onChange={e=>handleClassChange(e.target.value, user)}>
-                        <option value="null" >Select Cohort</option>
-                       { 
-                        classList.map(c => (
-                            <option key={c.class_id} value={c.class_id} defaultValue={c.class_id===id}
-                            >
-                                {c.class_name}
-                            </option>
-                        ))
-                        }
-                    </select>
-                </Grid>
-                <Grid item xs={4} style={{textAlign: 'center'}}>
-                    Hello {user.type==="mentor" && "Mentor"} {user.name}!
-                    <span>
-                        {
-                            user.type==="mentor" ? null
-                            : (!help && id) ?
-                                <button onClick={e => {
-                                    needHelp()
-                                    e.target.setAttribute('disabled', 'true')
-                                }}>I need help!</button>
-                            : help ? null 
-                            : id ? 
-                                <button onClick={e => {
-                                    needHelp()
-                                    e.target.setAttribute('disabled', 'true')
-                                }}>I need help!</button>
-                             : null
-                        }
-                    </span>
-                </Grid>
-                <Grid item xs={4} style={{textAlign: 'right'}}>
-                <GoogleLogout
-                    clientId="28861163542-su8up622bc6br2c077qgaqp380g4m9k3.apps.googleusercontent.com"
-                    buttonText="Logout"
-                    onLogoutSuccess={(e)=> {
-                        signOutMsg()
-                        navigate("/sign-in")
-                    }}
-                    render={renderProps => (
-                        <LogoutIcon onClick={renderProps.onClick} disabled={renderProps.disabled}></LogoutIcon>
-                      )}
+    render() {
+        return (
+            <AppBar position="fixed">
+                <HeaderStyle>
+                    <DividerHead>
+                        <Typography style={{float: 'left'}} variant="h6" color="inherit">
+                            Handraiser
+                        </Typography>
+                    </DividerHead>
+                    <IconButton onClick={this.handleMenu} style={{float: 'right'}} edge="start" color="inherit" aria-label="menu">
+                        <MenuIcon />
+                    </IconButton>
+                    <Menu
+                        anchorEl={this.state.toggleMenu} 
+                        keepMounted 
+                        open={Boolean(this.state.toggleMenu)} 
+                        onClose={this.handleClose}
                     >
-                </GoogleLogout>
-                </Grid>
-            </Grid>
-        </div>
-    )
+                        <MenuItem>{this.props.user.name}</MenuItem>
+                        {(!this.props.help && this.props.id) ?
+                                <MenuItem onClick={e => {
+                                    this.needHelp()
+                                    e.target.setAttribute('disabled', 'true')
+                                }}>I need help!</MenuItem>
+                            : this.props.help ? null 
+                            : this.props.id ? <MenuItem onClick={e => {
+                                    this.needHelp()
+                                    e.target.setAttribute('disabled', 'true')
+                                }}>I need help!</MenuItem>
+                            : null
+                            }
+                        <MenuItem onClick={this.props.handleClickOpen}>
+                            Select Cohort
+                        </MenuItem>
+                        <GoogleLogout
+                            clientId="28861163542-su8up622bc6br2c077qgaqp380g4m9k3.apps.googleusercontent.com"
+                            buttonText="Logout"
+                            onLogoutSuccess={(e)=> {
+                                navigate("/sign-in")
+                                this.showToast('Goodbye user!','success')
+                            }}
+                            render={renderProps => (
+                                <MenuItem onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                                    <Typography>Logout</Typography>
+                                </MenuItem>
+                                //<LogoutIcon onClick={renderProps.onClick} disabled={renderProps.disabled}></LogoutIcon>
+                                //<Typography onClick={renderProps.onClick} disabled={renderProps.disabled}>Logout</Typography>
+                            )}
+                            >     
+                        </GoogleLogout>
+                    </Menu>
+                </HeaderStyle>
+            </AppBar>
+        )
+    }
 }
