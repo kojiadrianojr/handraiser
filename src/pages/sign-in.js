@@ -1,16 +1,14 @@
-import React, { useState } from 'react'
-import { GoogleLogin } from 'react-google-login'
-import { navigate } from 'gatsby'
-import axios from 'axios'
-import { Dialog, Button } from '@material-ui/core'
-import gql from "graphql-tag"
-import { useSubscription } from "react-apollo-hooks"
-import gif from '../asset/handraise.gif'
-import DialogActions from '@material-ui/core/DialogActions'
-
-import logo from './../img/logo.png'
-import './style.css'
+import React, { useState } from "react";
+import { GoogleLogin } from "react-google-login";
+import { navigate } from "gatsby";
+import axios from "axios";
+import { Dialog, Button } from "@material-ui/core";
+import gql from "graphql-tag";
+import { useSubscription } from "react-apollo-hooks";
+import logo from "../assets/logo-cropped.png";
 import Grid from "@material-ui/core/Grid";
+import "./style.css";
+
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const GET_USERS = gql`
@@ -25,21 +23,21 @@ const GET_USERS = gql`
       type
     }
   }
-`
+`;
 
 const SignIn = () => {
   const signInMsg = () => toast.success('Logged in!')
   const { data } = useSubscription(GET_USERS, {
-    suspend: false,
-  })
+    suspend: false
+  });
 
-  const [modal, setModal] = useState(false)
-  const [user, setUser] = useState({})
+  const [modal, setModal] = useState(false);
+  const [user, setUser] = useState({});
 
-  const signUp = (type) => {
-    const profile = user
-    setTimeout(() =>{
-      setModal(false)
+  const signUp = type => {
+    const profile = user;
+    setTimeout(() => {
+      setModal(false);
       const body = {
         query: `
           mutation {
@@ -65,66 +63,66 @@ const SignIn = () => {
             }
           }
         `
-      }
+      };
       const options = {
         headers: {
           "x-hasura-admin-secret":
-            process.env.GATSBY_HASURA_GRAPHQL_ADMIN_SECRET,
-        },
-      }
+            process.env.GATSBY_HASURA_GRAPHQL_ADMIN_SECRET
+        }
+      };
 
       axios
-        .post('https://hasura-gatsby-demo.herokuapp.com/v1/graphql', body, options)
+        .post(
+          "https://hasura-gatsby-demo.herokuapp.com/v1/graphql",
+          body,
+          options
+        )
         .then(res => {
-          if(res.data.errors){
-            console.log(res.data.errors)
-          } 
-          else {
-            localStorage.setItem('handraise', res.accessToken)
-            navigate('/cohorts/', {
+          if (res.data.errors) {
+            console.log(res.data.errors);
+          } else {
+            localStorage.setItem("handraise", res.accessToken);
+            navigate("/cohorts/", {
               state: profile
-            })
+            });
           }
-        })
-    }, 100)
-  }
+        });
+    }, 100);
+  };
 
-  const responseGoogle = (res) => {
-
+  const responseGoogle = res => {
     var found = null;
     found = data.users.find(user => user.googleId === res.profileObj.googleId)
     if(found) {
       signInMsg()
       navigate('/cohorts', {
         state: found
-      })
+      });
     } else {
-      setUser(res.profileObj)
-      setModal(true)
+      setUser(res.profileObj);
+      setModal(true);
     }
-  }
-
-
+  };
 
   return (
-    <Grid container className="container">
-    <Grid item className="item">
-      <img src={logo} alt="logo" />
-      <div className="text">
-        <p className="signup">Sign In</p>
-        <p>Use Your Google Account</p>
-      </div>
-      <GoogleLogin
-        className="Login"
-        clientId="28861163542-su8up622bc6br2c077qgaqp380g4m9k3.apps.googleusercontent.com"
-        buttonText="Login"
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
-        cookiePolicy={"single_host_origin"}
-      />
+    <Grid container className="containerSignIn">
+      <Grid item className="itemSignIn">
+        <img src={logo} alt="logo" />
+        <div className="textSignIn">
+          <p className="signupSignIn">Sign In</p>
+          <p>Use Your Google Account</p>
+        </div>
+        <GoogleLogin
+          className="LoginSignIn"
+          clientId="28861163542-su8up622bc6br2c077qgaqp380g4m9k3.apps.googleusercontent.com"
+          buttonText="Login"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={"single_host_origin"}
+        />
+      </Grid>
     </Grid>
-    </Grid>
-  )
-}
+  );
+};
 
-export default SignIn
+export default SignIn;
