@@ -4,7 +4,8 @@ import LogoutIcon from '@material-ui/icons/ExitToApp'
 import { navigate } from 'gatsby'
 import { GoogleLogout } from 'react-google-login'
 import axios from 'axios'
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const style = {
     con: {
         padding: '20px',
@@ -21,11 +22,18 @@ const handleClassChange = (val, user) => {
     }
 }
 
+toast.configure({
+    autoClose: 8000,
+    draggable: false,
+  })
+
 export default ({classList, user, id, help}) => {
 
     if(!user.name) {
         navigate('/sign-in/')
     }
+
+    const signOutMsg = () => toast.success('Logged out!')
 
     const needHelp = () => {
         const body = {
@@ -56,7 +64,7 @@ export default ({classList, user, id, help}) => {
                         <option value="null" >Select Cohort</option>
                        { 
                         classList.map(c => (
-                            <option key={c.class_id} value={c.class_id} selected={c.class_id===id}
+                            <option key={c.class_id} value={c.class_id} defaultValue={c.class_id===id}
                             >
                                 {c.class_name}
                             </option>
@@ -88,7 +96,10 @@ export default ({classList, user, id, help}) => {
                 <GoogleLogout
                     clientId="28861163542-su8up622bc6br2c077qgaqp380g4m9k3.apps.googleusercontent.com"
                     buttonText="Logout"
-                    onLogoutSuccess={(e)=> navigate("/sign-in")}
+                    onLogoutSuccess={(e)=> {
+                        signOutMsg()
+                        navigate("/sign-in")
+                    }}
                     render={renderProps => (
                         <LogoutIcon onClick={renderProps.onClick} disabled={renderProps.disabled}></LogoutIcon>
                       )}

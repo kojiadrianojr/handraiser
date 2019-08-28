@@ -2,6 +2,8 @@ import React, { useEffect } from "react"
 import gql from "graphql-tag"
 import { useSubscription } from "react-apollo-hooks"
 import { navigate } from 'gatsby'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const GET_USERS = gql`
   subscription {
@@ -18,6 +20,7 @@ const GET_USERS = gql`
 `
 
 const Users = () => {
+  const signInMsg = () => toast.success('Welcome!')
   const { data, loading, error } = useSubscription(GET_USERS, {
     suspend: false,
   })

@@ -6,7 +6,13 @@ import { Dialog, Button } from '@material-ui/core'
 import gql from "graphql-tag"
 import { useSubscription } from "react-apollo-hooks"
 import gif from '../asset/handraise.gif'
+import DialogActions from '@material-ui/core/DialogActions'
 
+import logo from './../img/logo.png'
+import './style.css'
+import Grid from "@material-ui/core/Grid";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const GET_USERS = gql`
   subscription {
     users {
@@ -22,6 +28,7 @@ const GET_USERS = gql`
 `
 
 const SignIn = () => {
+  const signInMsg = () => toast.success('Logged in!')
   const { data } = useSubscription(GET_USERS, {
     suspend: false,
   })
@@ -87,6 +94,7 @@ const SignIn = () => {
     var found = null;
     found = data.users.find(user => user.googleId === res.profileObj.googleId)
     if(found) {
+      signInMsg()
       navigate('/cohorts', {
         state: found
       })
@@ -99,41 +107,23 @@ const SignIn = () => {
 
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${gif})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        height: '100vh'
-      }}
-    >
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 180,
-      }}>
-        <h1 style={{color: 'white', fontSize: 70, fontWeight: 10, letterSpacing: 16}}>Handraise</h1>
-        <GoogleLogin 
-          clientId="28861163542-su8up622bc6br2c077qgaqp380g4m9k3.apps.googleusercontent.com"
-          buttonText="Login"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy={'single_host_origin'}
-        />
-        <Dialog open={modal} onClose={()=>setModal(false)}>
-          <div>
-            <Button onClick={()=>{
-              signUp('student')
-            }}>Student</Button>
-            <Button onClick={()=>{
-              signUp('mentor')
-            }}>Mentor</Button>
-          </div>
-        </Dialog>
+    <Grid container className="container">
+    <Grid item className="item">
+      <img src={logo} alt="logo" />
+      <div className="text">
+        <p className="signup">Sign In</p>
+        <p>Use Your Google Account</p>
       </div>
-    </div>
+      <GoogleLogin
+        className="Login"
+        clientId="28861163542-su8up622bc6br2c077qgaqp380g4m9k3.apps.googleusercontent.com"
+        buttonText="Login"
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle}
+        cookiePolicy={"single_host_origin"}
+      />
+    </Grid>
+    </Grid>
   )
 }
 
