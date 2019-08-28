@@ -34,6 +34,7 @@
     "react-apollo-hooks": "^0.4.3",
     "react-dom": "^16.9.0",
     "react-google-login": "^5.0.5",
+    "react-loader-spinner": "^3.1.2",
     "styled-components": "^4.3.2",
     "subscriptions-transport-ws": "^0.9.16",
     "ws": "^6.2.0"

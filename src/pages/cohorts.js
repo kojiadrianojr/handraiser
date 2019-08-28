@@ -2,38 +2,39 @@ import React from "react";
 import Header from "../components/header";
 import CohortClass from "../components/cohortclass";
 import { graphql, navigate } from "gatsby";
-import './style.css';
-import CloseIcon from '@material-ui/icons/Close';
-import Toolbar from '@material-ui/core/Toolbar';
-import Slide from '@material-ui/core/Slide';
-import Dialog from '@material-ui/core/Dialog';
-import IconButton from '@material-ui/core/IconButton';
+import "./style.css";
+import CloseIcon from "@material-ui/icons/Close";
+import Toolbar from "@material-ui/core/Toolbar";
+import Slide from "@material-ui/core/Slide";
+import Dialog from "@material-ui/core/Dialog";
+import IconButton from "@material-ui/core/IconButton";
 import { Typography } from "@material-ui/core";
 import styled from "styled-components";
 import gql from "graphql-tag";
 import { useSubscription } from "react-apollo-hooks";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Loader from "react-loader-spinner";
 
 const GET_CLASSES = gql`
-    subscription {
-        class {
-        class_id
-        class_name
-        date_created
-        }
+  subscription {
+    class {
+      class_id
+      class_name
+      date_created
     }
+  }
 `;
 
 const Container = styled.div`
-    div > div.banner-msg {
-        min-height: 300px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        position: relative;
-        top: 50px;
-    }
+  div > div.banner-msg {
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    top: 50px;
+  }
 `;
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -42,13 +43,24 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function Cohorts(props) {
   const [open, setOpen] = React.useState(false);
   const { data, loading } = useSubscription(GET_CLASSES, {
-    suspend: false,
-  })
-  
-  if(loading){
-    return <CircularProgress />;
-  }
+    suspend: false
+  });
 
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          alignContent: "center",
+          height: "100vh"
+        }}
+      >
+        <Loader type="BallTriangle" color="#3e51b5" height={80} width={80} />
+      </div>
+    );
+  }
 
   function handleClickOpen() {
     setOpen(true);
@@ -58,19 +70,17 @@ function Cohorts(props) {
     setOpen(false);
   }
 
-
-
   function handleClassChange(val, user) {
     setOpen(false);
-    if(val==="null"){
-        navigate('/cohorts', { state: user})
-    }else{
-        navigate(`/cohorts/${val}`, { state: user})
+    if (val === "null") {
+      navigate("/cohorts", { state: user });
+    } else {
+      navigate(`/cohorts/${val}`, { state: user });
     }
   }
 
-  if(!props.location.state) {
-    navigate('/sign-in/')
+  if (!props.location.state) {
+    navigate("/sign-in/");
   }
 
   return (
@@ -85,17 +95,27 @@ function Cohorts(props) {
           <div className="banner-msg">
             <Typography variant="h4">Select a cohort.</Typography>
           </div>
-          <Dialog fullScreen open={open} onClose={handleClose}  TransitionComponent={Transition}>
-              <Toolbar style={{display: 'flex', justifyContent: 'flex-end'}}>
-                <IconButton edge="end" color="inherit" onClick={handleClose} aria-label="close">
-                  <CloseIcon />
-                </IconButton>
-              </Toolbar>
-              <CohortClass
-                handleClassChange={handleClassChange}
-                classList={props.data.demo.class}
-                user={props.location.state}
-              />
+          <Dialog
+            fullScreen
+            open={open}
+            onClose={handleClose}
+            TransitionComponent={Transition}
+          >
+            <Toolbar style={{ display: "flex", justifyContent: "flex-end" }}>
+              <IconButton
+                edge="end"
+                color="inherit"
+                onClick={handleClose}
+                aria-label="close"
+              >
+                <CloseIcon />
+              </IconButton>
+            </Toolbar>
+            <CohortClass
+              handleClassChange={handleClassChange}
+              classList={props.data.demo.class}
+              user={props.location.state}
+            />
           </Dialog>
         </div>
       ) : null}
