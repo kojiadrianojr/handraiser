@@ -25,7 +25,7 @@ const device = {
 
 export const MainContainer = styled.div`
     width: 100%;
-    top: -300px;
+    height: 100%;
     position: relative;
     margin: auto auto;
 `;
