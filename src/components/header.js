@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import LogoutIcon from '@material-ui/icons/ExitToApp'
 import { navigate } from 'gatsby'
 import { GoogleLogout } from 'react-google-login'
-import axios from 'axios'
+import axios from 'axios';
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -92,21 +92,22 @@ export default class Header extends React.Component {
                                 }}>I need help!</MenuItem>
                             : null
                             }
-                        <MenuItem>
+                        <MenuItem onClick={this.props.handleClickOpen}>
                             Select Cohort
                         </MenuItem>
-                        <MenuItem>
-                            <GoogleLogout
-                                clientId="28861163542-su8up622bc6br2c077qgaqp380g4m9k3.apps.googleusercontent.com"
-                                buttonText="Logout"
-                                onLogoutSuccess={(e)=> navigate("/sign-in")}
-                                render={renderProps => (
-                                    //<LogoutIcon onClick={renderProps.onClick} disabled={renderProps.disabled}></LogoutIcon>
-                                    <Typography onClick={renderProps.onClick} disabled={renderProps.disabled}>Logout</Typography>
-                                )}
-                                >     
-                            </GoogleLogout>
-                        </MenuItem>
+                        <GoogleLogout
+                            clientId="28861163542-su8up622bc6br2c077qgaqp380g4m9k3.apps.googleusercontent.com"
+                            buttonText="Logout"
+                            onLogoutSuccess={(e)=> navigate("/sign-in")}
+                            render={renderProps => (
+                                <MenuItem onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                                    <Typography>Logout</Typography>
+                                </MenuItem>
+                                //<LogoutIcon onClick={renderProps.onClick} disabled={renderProps.disabled}></LogoutIcon>
+                                //<Typography onClick={renderProps.onClick} disabled={renderProps.disabled}>Logout</Typography>
+                            )}
+                            >     
+                        </GoogleLogout>
                     </Menu>
                 </HeaderStyle>
             </AppBar>

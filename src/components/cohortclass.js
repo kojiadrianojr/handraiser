@@ -16,9 +16,6 @@ import {BoxMain, BoxCont, SearchBoxNav, MainContainer, ResultNav} from "../style
 export default class CohortClass extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            cohortCount: 0,
-        }
     }
     
     render() {
@@ -47,7 +44,7 @@ export default class CohortClass extends React.Component {
                     </SearchBoxNav>
                     <ResultNav>
                         <Typography variant="caption">
-                            About {this.state.cohortCount} results.
+                            About {this.props.classList.length} results.
                         </Typography>
                     </ResultNav>
                     <BoxMain>
@@ -62,7 +59,7 @@ export default class CohortClass extends React.Component {
                         {
                             this.props.classList.map(x => {
                                 return (
-                                    <BoxCont key={x.class_id}>
+                                    <BoxCont key={x.class_id} onClick={e => this.props.handleClassChange(x.class_id, this.props.user)}>
                                         <Typography variant="h6">
                                             {x.class_name}
                                         </Typography>

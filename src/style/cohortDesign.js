@@ -24,7 +24,8 @@ const device = {
 };
 
 export const MainContainer = styled.div`
-    max-width: 1024px;
+    width: 100%;
+    top: -300px;
     position: relative;
     margin: auto auto;
 `;
@@ -57,6 +58,10 @@ export const BoxCont = styled.div`
     margin-bottom: 5px;
     @media ${device.mobileS} {
         width: 90%;
+    }
+
+    &:hover {
+        background-color: #b0f7ab;
     }
 `;
 
