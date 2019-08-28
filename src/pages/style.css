@@ -10,7 +10,7 @@ html {
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap");
 
 .containerSignIn {
-  color: #2e338c;
+  color: black;
   display: flex;
   align-items: center;
   align-content: center;
