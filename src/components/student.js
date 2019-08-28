@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { Delete } from "@material-ui/icons";
@@ -115,6 +115,22 @@ const style = {
 };
 
 export default function Student({ queueData, user }) {
+  const [isEmpty, setEmpty] = useState(true)
+  var c = 0;
+  React.useEffect(() => {
+    queueData.map(data => {
+      if (!data.status === "need help"){
+        return c = 0;
+      }
+    })
+    queueData.map(data => {
+      if (data.status === "need help"){
+        c++;
+      }
+    })
+     c !== 0? setEmpty(false) : setEmpty(true)
+  })
+
   const removeHelp = () => {
     const body = {
       query: `
@@ -138,13 +154,12 @@ export default function Student({ queueData, user }) {
       options
     );
   };
-
   return (
     <Container>
       <Card>
         <Head>Need Help</Head>
         <Body>
-          {queueData.map(needHelp =>
+          {!isEmpty? (queueData.map(needHelp =>
             needHelp.status === "need help" ? (
               <div key={needHelp.user.googleId}>
                 <img src={needHelp.user.imageUrl} alt={needHelp.user.name} />
@@ -164,7 +179,7 @@ export default function Student({ queueData, user }) {
                 </div>
               </div>
             ) : null
-          )}
+          )) : <p>Empty</p>}
         </Body>
       </Card>
 

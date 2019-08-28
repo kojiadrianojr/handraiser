@@ -10,6 +10,16 @@ import LogoutIcon from '@material-ui/icons/ExitToApp'
 import { navigate } from 'gatsby'
 import { GoogleLogout } from 'react-google-login'
 import axios from 'axios';
+import {toast } from 'react-toastify'
+
+toast.configure({
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+})
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -18,6 +28,9 @@ export default class Header extends React.Component {
         this.state = {
             toggleMenu: null,
         }
+    }
+    showToast = (msg,type) => {
+        toast[`${type}`](` 🐨 ${msg}`)
     }
 
     handleMenu = (event) => {
@@ -39,7 +52,7 @@ export default class Header extends React.Component {
             navigate(`/cohorts/${val}`, { state: user})
         }
     }
-
+ 
     needHelp = () => {
         const body = {
             query: `
@@ -98,7 +111,10 @@ export default class Header extends React.Component {
                         <GoogleLogout
                             clientId="28861163542-su8up622bc6br2c077qgaqp380g4m9k3.apps.googleusercontent.com"
                             buttonText="Logout"
-                            onLogoutSuccess={(e)=> navigate("/sign-in")}
+                            onLogoutSuccess={(e)=> {
+                                navigate("/sign-in")
+                                this.showToast('Goodbye user!','success')
+                            }}
                             render={renderProps => (
                                 <MenuItem onClick={renderProps.onClick} disabled={renderProps.disabled}>
                                     <Typography>Logout</Typography>

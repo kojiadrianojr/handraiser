@@ -12,8 +12,9 @@ import { Typography } from "@material-ui/core";
 import styled from "styled-components";
 import gql from "graphql-tag";
 import { useSubscription } from "react-apollo-hooks";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Loader from "react-loader-spinner";
+//import CircularProgress from '@material-ui/core/CircularProgress';
+import { Box, Grid } from "@material-ui/core";
 
 const GET_CLASSES = gql`
   subscription {
@@ -82,9 +83,9 @@ function Cohorts(props) {
   if (!props.location.state) {
     navigate("/sign-in/");
   }
-
+  const dataInfo = data.class;
   return (
-    <Container>
+    <Box>
       {props.location.state ? (
         <div>
           <Header
@@ -119,7 +120,7 @@ function Cohorts(props) {
           </Dialog>
         </div>
       ) : null}
-    </Container>
+    </Box>
   );
 }
 

@@ -9,6 +9,8 @@ import logo from "../assets/logo-cropped.png";
 import Grid from "@material-ui/core/Grid";
 import "./style.css";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const GET_USERS = gql`
   subscription {
     users {
@@ -24,9 +26,20 @@ const GET_USERS = gql`
 `;
 
 const SignIn = () => {
+  toast.configure({
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+  })
+  const signInMsg = () => toast.success(' 🐨 Logged in!')
   const { data } = useSubscription(GET_USERS, {
     suspend: false
   });
+
+
 
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState({});
@@ -89,9 +102,10 @@ const SignIn = () => {
 
   const responseGoogle = res => {
     var found = null;
-    found = data.users.find(user => user.googleId === res.profileObj.googleId);
-    if (found) {
-      navigate("/cohorts", {
+    found = data.users.find(user => user.googleId === res.profileObj.googleId)
+    if(found) {
+      signInMsg()
+      navigate('/cohorts', {
         state: found
       });
     } else {
