@@ -43,6 +43,7 @@ function Cohorts(props) {
 
 
   function handleClassChange(val, user) {
+    setOpen(false);
     if(val==="null"){
         navigate('/cohorts', { state: user})
     }else{
