@@ -5,41 +5,36 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Delete } from "@material-ui/icons";
-import { Icon } from "@material-ui/core";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import MUIContainer from "@material-ui/core/Container";
 
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  padding: 1rem;
-  max-width: 800px;
+  padding: 2rem 0;
   margin: auto auto;
-
-  @media (max-width: 800px) {
+  @media (max-width: 1000px) {
     flex-direction: column;
   }
 `;
 
 const Card = styled.div`
-  @media (max-width: 800px) {
+  @media (max-width: 1000px) {
     width: 100%;
-    margin-bottom: 24px;
+    margin-bottom: 1rem;
   }
 
   width: calc(100% / 2 - 50px);
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid #7e57c2;
   min-height: 100%;
-  border-radius: 10px;
+  border-radius: 11px;
 `;
 
 const Head = styled.div`
-  background: #56ccf2;
-  background: -webkit-linear-gradient(to right, #2f80ed, #56ccf2);
-  background: linear-gradient(to right, #2f80ed, #56ccf2);
+  background: #7e57c2;
   color: white;
   text-align: center;
-  padding: 10px;
+  padding: 16px;
   border-radius: 9px 9px 0 0;
 `;
 const Body = styled.div`
@@ -65,39 +60,65 @@ const Body = styled.div`
         height: 100%;
 
         button.lg {
-          padding: 14px;
+          padding: 0.8rem;
           margin: 3px 3px 3px 0px;
           color: white;
-          background: #2F80ED;
+          background: #37b74a;
           border: none;
           text-transform: uppercase;
           border-radius: 3px;   
         }
 
         button.sm {
-          padding: 14px;
+          padding: 0.8rem;
           margin: 3px 3px 3px 0px;
           background: inherit;
           border: none;
-          color: #2F80ED;
           text-transform: uppercase;
           border-radius: 3px; 
           outline:none;
           cursor: pointer;
           display: relative;  
         }
+        
+        .dropdown:hover .drop-menu{
+          display: block;
+        }
 
+        .drop-menu {
+          display: none;
+          z-index: 1;
+          border-radius:3px;
+          background: white;
+          box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.5);
+          position: absolute;
+          right: 0;
+          top: 30px;
+          padding: 0;
+          min-width: 100px;
+          text-align: center;
+          li {
+            list-style: none;
+            padding: 12px;
+            text-transform: uppercase;
+          }
+          li:hover {
+            background: #37b74a;
+            color: white;
+            cursor:pointer;
+          }
+        }
 
         button.lg:last-child {
           margin-right: 0;
         }
 
-        @media (max-width: 800px) {
+        @media (max-width: 1000px) {
           button.lg {
             display: none;
           }
         }
-        @media (min-width: 801px) {
+        @media (min-width: 1001px) {
           button.sm {
             display: none;
           }
@@ -106,6 +127,7 @@ const Body = styled.div`
       
   }
 `;
+
 
 const style = {
   body: {
@@ -160,53 +182,52 @@ export default function Student({ queueData, user }) {
     );
   };
   return (
-    <Container>
-      <Card>
-        <Head>Need Help</Head>
-        <Body>
-          {!isEmpty? (queueData.map(needHelp =>
-            needHelp.status === "need help" ? (
-              <div key={needHelp.user.googleId}>
-                <img src={needHelp.user.imageUrl} alt={needHelp.user.name} />
-                <p>{needHelp.user.name}</p>
-                <div>
-                  {needHelp.user.googleId === user.googleId && (
-                    <button className="lg" onClick={()=>removeHelp(needHelp.class.class_id)}>
-                      remove
-                    </button>
-                  )}
+    <MUIContainer maxWidth="lg">
+      <Container>
+        <Card>
+          <Head>Need Help</Head>
+          <Body>
+            {!isEmpty? (queueData.map(needHelp =>
+              needHelp.status === "need help" ? (
+                <div key={needHelp.user.googleId}>
+                  <img src={needHelp.user.imageUrl} alt={needHelp.user.name} />
+                  <p>{needHelp.user.name}</p>
+                  <div>
+                    {needHelp.user.googleId === user.googleId && (
+                      <button className="lg" onClick={()=>removeHelp(needHelp.class.class_id)}>
+                        remove
+                      </button>
+                    )}
 
-                  {needHelp.user.googleId === user.googleId && (
-                    <IconButton onClick={removeHelp}>
-                      <Delete />
-                    </IconButton>
-                  )}
+                    {needHelp.user.googleId === user.googleId && (
+                      <button className="sm" onClick={()=>removeHelp(needHelp.class.class_id)}>
+                        <Delete style={{color: '#7e57c2'}}/>
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ) : null
-          )) : <p>Empty</p>}
-        </Body>
-      </Card>
+              ) : null
+            )) : <p>Empty</p>}
+          </Body>
+        </Card>
 
-      <Card>
-        <Head style={style.head}>Being Helped</Head>
-        <Body>
-          {queueData.map(beingHelped =>
-            beingHelped.status === "being helped" ? (
-              <div key={beingHelped.user.googleId}>
-                <img
-                  src={beingHelped.user.imageUrl}
-                  alt={beingHelped.user.name}
-                />
-                <p>{beingHelped.user.name}</p>
-                <div>
-                  <CircularProgress />
+        <Card>
+          <Head>Being Helped</Head>
+          <Body>
+            {queueData.map(beingHelped =>
+              beingHelped.status === "being helped" ? (
+                <div key={beingHelped.user.googleId}>
+                  <img
+                    src={beingHelped.user.imageUrl}
+                    alt={beingHelped.user.name}
+                  />
+                  <p>{beingHelped.user.name}</p>
                 </div>
-              </div>
-            ) : null
-          )}
-        </Body>
-      </Card>
-    </Container>
+              ) : null
+            )}
+          </Body>
+        </Card>
+      </Container>
+    </MUIContainer>
   );
 }

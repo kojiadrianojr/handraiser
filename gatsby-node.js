@@ -18,7 +18,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       reporter.panicOnBuild(`Error while running GraphQL query.`)
       return
     }
-    console.log(JSON.stringify(result))
+    
     const cohortTemplate = path.resolve(`src/templates/cohort.js`)
     result.data.demo.class.forEach(data => {
         const cohortPath = `/cohorts/${data.class_id}`
@@ -31,16 +31,3 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         })
     })
   }
-
-exports.onCreatePage = async ({ page, actions }) => {
-  const { createPage } = actions
-
-  // page.matchPath is a special key that's used for matching pages
-  // only on the client.
-  if (page.path.match(/^\/cohorts/)) {
-    page.matchPath = "/cohorts/*"
-
-    // Update the page.
-    createPage(page)
-  }
-}
