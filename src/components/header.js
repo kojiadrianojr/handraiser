@@ -92,18 +92,14 @@ export default class Header extends React.Component {
                         open={Boolean(this.state.toggleMenu)} 
                         onClose={this.handleClose}
                     >
-                        <MenuItem>{this.props.user.name}</MenuItem>
-                        {(!this.props.help && this.props.id) ?
-                                <MenuItem onClick={e => {
-                                    this.needHelp()
-                                    e.target.setAttribute('disabled', 'true')
-                                }}>I need help!</MenuItem>
-                            : this.props.help ? null 
-                            : this.props.id ? <MenuItem onClick={e => {
-                                    this.needHelp()
-                                    e.target.setAttribute('disabled', 'true')
-                                }}>I need help!</MenuItem>
-                            : null
+                        <MenuItem>{this.props.user.name}{this.props.user.type ==="mentor" && "(Mentor)"}</MenuItem>
+                            {
+                                (this.props.id && this.props.user.type !=="mentor" && !this.props.help) ?
+                                    <MenuItem onClick={e => {
+                                        this.needHelp()
+                                        e.target.setAttribute('disabled', 'true')
+                                    }}>I need help!</MenuItem>
+                                : null
                             }
                         <MenuItem onClick={this.props.handleClickOpen}>
                             Select Cohort
