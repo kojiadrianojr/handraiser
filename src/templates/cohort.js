@@ -71,7 +71,7 @@ export default function Cohort(props) {
     }
   }
 
-  if (!props.location.state) {
+  if (!props.location.state && typeof window !== 'undefined') {
     navigate("/sign-in/");
   }
 
