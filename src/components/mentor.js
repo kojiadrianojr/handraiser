@@ -132,6 +132,7 @@ const Body = styled.div`
 
 export default function Mentor({ queueData }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl_, setAnchorEl_] = React.useState(null);
   const removeHelp = (id, class_id) => {
     const body = {
       query: `
@@ -186,6 +187,14 @@ export default function Mentor({ queueData }) {
 
   function handleClose() {
     setAnchorEl(null);
+  }
+
+  function handleClick_(event) {
+    setAnchorEl_(event.currentTarget);
+  }
+
+  function handleClose_() {
+    setAnchorEl_(null);
   }
 
   return (
@@ -286,26 +295,26 @@ export default function Mentor({ queueData }) {
                   >
                     done
                   </button> */}
-                  <IconButton onClick={handleClick}>
+                  <IconButton onClick={handleClick_}>
                     <MoreVert />
                   </IconButton>
                   <Menu
-                    anchorEl={anchorEl}
+                    anchorEl={anchorEl_}
                     keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={() => handleClose()}
+                    open={Boolean(anchorEl_)}
+                    onClose={() => handleClose_()}
                   >
                     <MenuItem
                       onClick={() =>{
                         updateHelp("need help", beingHelped.user.googleId, beingHelped.class.class_id);
-                        handleClose();
+                        handleClose_();
                       }}
                     >
                       Back to queue
                     </MenuItem>
                     <MenuItem onClick={() => {
                       removeHelp(beingHelped.user.googleId, beingHelped.class.class_id)
-                      handleClose();
+                      handleClose_();
                       }}>
                       Done
                     </MenuItem>
