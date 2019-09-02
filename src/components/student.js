@@ -1,7 +1,12 @@
 import React, {useState} from "react";
 import axios from "axios";
 import styled from "styled-components";
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import { Delete } from "@material-ui/icons";
+import { Icon } from "@material-ui/core";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Container = styled.div`
   display: flex;
@@ -172,9 +177,9 @@ export default function Student({ queueData, user }) {
                   )}
 
                   {needHelp.user.googleId === user.googleId && (
-                    <button className="sm" onClick={()=>removeHelp(needHelp.class.class_id)}>
+                    <IconButton onClick={removeHelp}>
                       <Delete />
-                    </button>
+                    </IconButton>
                   )}
                 </div>
               </div>
@@ -194,6 +199,9 @@ export default function Student({ queueData, user }) {
                   alt={beingHelped.user.name}
                 />
                 <p>{beingHelped.user.name}</p>
+                <div>
+                  <CircularProgress />
+                </div>
               </div>
             ) : null
           )}

@@ -1,7 +1,10 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
+import IconButton from '@material-ui/core/IconButton';
 import { MoreVert } from "@material-ui/icons";
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const Container = styled.div`
   display: flex;
@@ -128,6 +131,7 @@ const Body = styled.div`
 `;
 
 export default function Mentor({ queueData }) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const removeHelp = (id, class_id) => {
     const body = {
       query: `
@@ -176,6 +180,14 @@ export default function Mentor({ queueData }) {
     );
   };
 
+  function handleClick(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleClose() {
+    setAnchorEl(null);
+  }
+
   return (
     <Container>
       <Card>
@@ -187,7 +199,7 @@ export default function Mentor({ queueData }) {
                 <img src={needHelp.user.imageUrl} alt={needHelp.user.name} />
                 <p>{needHelp.user.name}</p>
                 <div>
-                  <button
+                  {/* <button
                     className="lg"
                     onClick={() => removeHelp(needHelp.user.googleId, needHelp.class.class_id)}
                   >
@@ -200,8 +212,30 @@ export default function Mentor({ queueData }) {
                     }
                   >
                     help
-                  </button>
-                  <div className="dropdown">
+                  </button> */}
+                  <IconButton onClick={handleClick}>
+                    <MoreVert />
+                  </IconButton>
+                  <Menu
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={() => handleClose()}
+                  >
+                    <MenuItem onClick={() =>{
+                          updateHelp("being helped", needHelp.user.googleId, needHelp.class.class_id);
+                          handleClose();
+                        }}>
+                      Help
+                    </MenuItem>
+                    <MenuItem onClick={() => {
+                      removeHelp(needHelp.user.googleId, needHelp.class.class_id);
+                      handleClose();
+                      }}>
+                      Remove
+                    </MenuItem>
+                  </Menu>
+                  {/* <div className="dropdown">
                     <button className="sm drop-btn">
                       <MoreVert />
                     </button>
@@ -217,7 +251,7 @@ export default function Mentor({ queueData }) {
                         remove
                       </li>
                     </ul>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             ) : null
@@ -238,7 +272,7 @@ export default function Mentor({ queueData }) {
                 <p>{beingHelped.user.name}</p>
 
                 <div>
-                  <button
+                  {/* <button
                     className="lg"
                     onClick={() =>
                       updateHelp("need help", beingHelped.user.googleId, beingHelped.class.class_id)
@@ -251,8 +285,32 @@ export default function Mentor({ queueData }) {
                     onClick={() => removeHelp(beingHelped.user.googleId, beingHelped.class.class_id)}
                   >
                     done
-                  </button>
-                  <div className="dropdown">
+                  </button> */}
+                  <IconButton onClick={handleClick}>
+                    <MoreVert />
+                  </IconButton>
+                  <Menu
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={() => handleClose()}
+                  >
+                    <MenuItem
+                      onClick={() =>{
+                        updateHelp("need help", beingHelped.user.googleId, beingHelped.class.class_id);
+                        handleClose();
+                      }}
+                    >
+                      Back to queue
+                    </MenuItem>
+                    <MenuItem onClick={() => {
+                      removeHelp(beingHelped.user.googleId, beingHelped.class.class_id)
+                      handleClose();
+                      }}>
+                      Done
+                    </MenuItem>
+                  </Menu>
+                  {/* <div className="dropdown">
                     <button className="sm drop-btn">
                       <MoreVert />
                     </button>
@@ -268,7 +326,7 @@ export default function Mentor({ queueData }) {
                         done
                       </li>
                     </ul>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             ) : null
