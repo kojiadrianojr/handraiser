@@ -125,12 +125,12 @@ const Body = styled.div`
   }
 `;
 
-export default function Mentor({ queueData, user }) {
-  const removeHelp = id => {
+export default function Mentor({ queueData }) {
+  const removeHelp = (id, class_id) => {
     const body = {
       query: `
         mutation {
-          delete_queue(where: {user_id: {_eq: "${id}"}}) {
+          delete_queue(where: {user_id: {_eq: "${id}"}, class_id: {_eq: "${class_id}"}}) {
             returning {
               user_id
             }
@@ -150,11 +150,11 @@ export default function Mentor({ queueData, user }) {
     );
   };
 
-  const updateHelp = (status, id) => {
+  const updateHelp = (status, id, class_id) => {
     const body = {
       query: `
             mutation {
-                update_queue(where: {user_id: {_eq: "${id}"}}, _set: {status: "${status}"}) {
+                update_queue(where: {user_id: {_eq: "${id}"}, class_id: {_eq: "${class_id}"}}, _set: {status: "${status}"}) {
                   returning {
                     status
                   }
@@ -188,15 +188,14 @@ export default function Mentor({ queueData, user }) {
                   <div>
                     <button
                       className="lg"
-                      onClick={() => removeHelp(needHelp.user.googleId)}
+                      onClick={() => removeHelp(needHelp.user.googleId, needHelp.class.class_id)}
                     >
                       remove
                     </button>
                     <button
                       className="lg"
                       onClick={() =>
-                        updateHelp("being helped", needHelp.user.googleId)
-                      }
+                        updateHelp("being helped", needHelp.user.googleId, needHelp.class.class_id)}
                     >
                       help
                     </button>
@@ -207,12 +206,11 @@ export default function Mentor({ queueData, user }) {
                       <ul className="drop-menu">
                         <li
                           onClick={() =>
-                            updateHelp("being helped", needHelp.user.googleId)
-                          }
+                            updateHelp("being helped", needHelp.user.googleId, needHelp.class.class_id)}
                         >
                           help
                         </li>
-                        <li onClick={() => removeHelp(needHelp.user.googleId)}>
+                        <li onClick={() => removeHelp(needHelp.user.googleId, needHelp.class.class_id)}>
                           remove
                         </li>
                       </ul>
@@ -240,14 +238,14 @@ export default function Mentor({ queueData, user }) {
                     <button
                       className="lg"
                       onClick={() =>
-                        updateHelp("need help", beingHelped.user.googleId)
+                        updateHelp("need help", beingHelped.user.googleId, beingHelped.class.class_id)
                       }
                     >
                       back to queue
                     </button>
                     <button
                       className="lg"
-                      onClick={() => removeHelp(beingHelped.user.googleId)}
+                      onClick={() => removeHelp(beingHelped.user.googleId, beingHelped.class.class_id)}
                     >
                       done
                     </button>
@@ -258,12 +256,12 @@ export default function Mentor({ queueData, user }) {
                       <ul className="drop-menu">
                         <li
                           onClick={() =>
-                            updateHelp("need help", beingHelped.user.googleId)
+                            updateHelp("need help", beingHelped.user.googleId, beingHelped.class.class_id)
                           }
                         >
                           back to queue
                         </li>
-                        <li onClick={() => removeHelp(beingHelped.user.googleId)}>
+                        <li onClick={() => removeHelp(beingHelped.user.googleId, beingHelped.class.class_id)}>
                           done
                         </li>
                       </ul>
