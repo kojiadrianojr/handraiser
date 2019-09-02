@@ -130,13 +130,13 @@ const Body = styled.div`
   }
 `;
 
-export default function Mentor({ queueData, user }) {
+export default function Mentor({ queueData }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const removeHelp = id => {
+  const removeHelp = (id, class_id) => {
     const body = {
       query: `
         mutation {
-          delete_queue(where: {user_id: {_eq: "${id}"}}) {
+          delete_queue(where: {user_id: {_eq: "${id}"}, class_id: {_eq: "${class_id}"}}) {
             returning {
               user_id
             }
@@ -156,11 +156,11 @@ export default function Mentor({ queueData, user }) {
     );
   };
 
-  const updateHelp = (status, id) => {
+  const updateHelp = (status, id, class_id) => {
     const body = {
       query: `
             mutation {
-                update_queue(where: {user_id: {_eq: "${id}"}}, _set: {status: "${status}"}) {
+                update_queue(where: {user_id: {_eq: "${id}"}, class_id: {_eq: "${class_id}"}}, _set: {status: "${status}"}) {
                   returning {
                     status
                   }
@@ -201,14 +201,14 @@ export default function Mentor({ queueData, user }) {
                 <div>
                   {/* <button
                     className="lg"
-                    onClick={() => removeHelp(needHelp.user.googleId)}
+                    onClick={() => removeHelp(needHelp.user.googleId, needHelp.class.class_id)}
                   >
                     remove
                   </button>
                   <button
                     className="lg"
                     onClick={() =>
-                      updateHelp("being helped", needHelp.user.googleId)
+                      updateHelp("being helped", needHelp.user.googleId, needHelp.class.class_id)
                     }
                   >
                     help
@@ -223,13 +223,13 @@ export default function Mentor({ queueData, user }) {
                     onClose={() => handleClose()}
                   >
                     <MenuItem onClick={() =>{
-                          updateHelp("being helped", needHelp.user.googleId);
+                          updateHelp("being helped", needHelp.user.googleId, needHelp.class.class_id);
                           handleClose();
                         }}>
                       Help
                     </MenuItem>
                     <MenuItem onClick={() => {
-                      removeHelp(needHelp.user.googleId);
+                      removeHelp(needHelp.user.googleId, needHelp.class.class_id);
                       handleClose();
                       }}>
                       Remove
@@ -242,12 +242,12 @@ export default function Mentor({ queueData, user }) {
                     <ul className="drop-menu">
                       <li
                         onClick={() =>
-                          updateHelp("being helped", needHelp.user.googleId)
+                          updateHelp("being helped", needHelp.user.googleId, needHelp.class.class_id)
                         }
                       >
                         help
                       </li>
-                      <li onClick={() => removeHelp(needHelp.user.googleId)}>
+                      <li onClick={() => removeHelp(needHelp.user.googleId, needHelp.class.class_id)}>
                         remove
                       </li>
                     </ul>
@@ -274,19 +274,15 @@ export default function Mentor({ queueData, user }) {
                 <div>
                   {/* <button
                     className="lg"
-                    onClick={() =>{
-                      updateHelp("need help", beingHelped.user.googleId);
-                      handleClose();
-                    }}
+                    onClick={() =>
+                      updateHelp("need help", beingHelped.user.googleId, beingHelped.class.class_id)
+                    }
                   >
                     back to queue
                   </button>
                   <button
                     className="lg"
-                    onClick={() => {
-                      removeHelp(beingHelped.user.googleId);
-                      handleClose();
-                    }}
+                    onClick={() => removeHelp(beingHelped.user.googleId, beingHelped.class.class_id)}
                   >
                     done
                   </button> */}
@@ -301,14 +297,14 @@ export default function Mentor({ queueData, user }) {
                   >
                     <MenuItem
                       onClick={() =>{
-                        updateHelp("need help", beingHelped.user.googleId);
+                        updateHelp("need help", beingHelped.user.googleId, beingHelped.class.class_id);
                         handleClose();
                       }}
                     >
                       Back to queue
                     </MenuItem>
                     <MenuItem onClick={() => {
-                      removeHelp(beingHelped.user.googleId)
+                      removeHelp(beingHelped.user.googleId, beingHelped.class.class_id)
                       handleClose();
                       }}>
                       Done
@@ -321,12 +317,12 @@ export default function Mentor({ queueData, user }) {
                     <ul className="drop-menu">
                       <li
                         onClick={() =>
-                          updateHelp("need help", beingHelped.user.googleId)
+                          updateHelp("need help", beingHelped.user.googleId, beingHelped.class.class_id)
                         }
                       >
                         back to queue
                       </li>
-                      <li onClick={() => removeHelp(beingHelped.user.googleId)}>
+                      <li onClick={() => removeHelp(beingHelped.user.googleId, beingHelped.class.class_id)}>
                         done
                       </li>
                     </ul>
