@@ -177,7 +177,7 @@ export default function Student({ queueData, user }) {
                   )}
 
                   {needHelp.user.googleId === user.googleId && (
-                    <IconButton onClick={removeHelp}>
+                    <IconButton onClick={()=>removeHelp(needHelp.class.class_id)}>
                       <Delete />
                     </IconButton>
                   )}
@@ -200,7 +200,7 @@ export default function Student({ queueData, user }) {
                 />
                 <p>{beingHelped.user.name}</p>
                 <div>
-                  <CircularProgress />
+                  <CircularProgress color="secondary"/>
                 </div>
               </div>
             ) : null
