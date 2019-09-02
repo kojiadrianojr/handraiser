@@ -131,11 +131,11 @@ export default function Student({ queueData, user }) {
      c !== 0? setEmpty(false) : setEmpty(true)
   })
 
-  const removeHelp = () => {
+  const removeHelp = class_id => {
     const body = {
       query: `
             mutation {
-                delete_queue(where: {user_id: {_eq: "${user.googleId}"}}) {
+                delete_queue(where: {user_id: {_eq: "${user.googleId}"}, class_id: {_eq: "${class_id}"}}) {
                   returning {
                     user_id
                   }
@@ -166,13 +166,13 @@ export default function Student({ queueData, user }) {
                 <p>{needHelp.user.name}</p>
                 <div>
                   {needHelp.user.googleId === user.googleId && (
-                    <button className="lg" onClick={removeHelp}>
+                    <button className="lg" onClick={()=>removeHelp(needHelp.class.class_id)}>
                       remove
                     </button>
                   )}
 
                   {needHelp.user.googleId === user.googleId && (
-                    <button className="sm" onClick={removeHelp}>
+                    <button className="sm" onClick={()=>removeHelp(needHelp.class.class_id)}>
                       <Delete />
                     </button>
                   )}
