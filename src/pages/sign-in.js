@@ -138,10 +138,10 @@ const SignIn = () => {
           <div>
             <Button onClick={()=>{
               signUp('student')
-            }}>Student</Button>
+            }}>Students</Button>
             <Button onClick={()=>{
               signUp('mentor')
-            }}>Mentor</Button>
+            }}>Mentors</Button>
           </div>
         </Dialog>
 
