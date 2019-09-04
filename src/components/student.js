@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import IconButton from "@material-ui/core/IconButton";
@@ -6,9 +6,10 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Delete } from "@material-ui/icons";
 import { Box } from "@material-ui/core";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
 import MUIContainer from "@material-ui/core/Container";
-import ReactLoading from 'react-loading'
+import ReactLoading from "react-loading";
+import Loader from "react-loader-spinner";
 const Container = styled.div`
   display: flex;
   flex-direction: row;
@@ -142,31 +143,26 @@ const style = {
   }
 };
 
-const BeingHelped = ({queueData}) => {
-
+const BeingHelped = ({ queueData }) => {
   toast.configure({
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
-    draggable: true,
-  })
-  
-  return(
-    queueData.map(beingHelped =>
-      beingHelped.status === "being helped" ? (
+    draggable: true
+  });
+
+  return queueData.map(beingHelped =>
+    beingHelped.status === "being helped" ? (
       <div key={beingHelped.user.googleId}>
-        <img src={beingHelped.user.imageUrl} alt={beingHelped.user.name}/>
+        <img src={beingHelped.user.imageUrl} alt={beingHelped.user.name} />
         <p>{beingHelped.user.name} </p>
-        <div style={{border: '1px solid black'}}>
-        <ReactLoading type={"cubes"} color={"black"} /> 
-        </div>
+        <Loader type="MutatingDots" color="#3e51b5" height={100} width={100} />
       </div>
-      ) : null
-    )
-  )
-}
+    ) : null
+  );
+};
 
 export default function Student({ queueData, user }) {
   const [isEmpty, setEmpty] = useState(true);
@@ -246,7 +242,10 @@ export default function Student({ queueData, user }) {
                 ) : null
               )
             ) : (
-              <h4 style={{textAlign: 'center'}}> Cody the 🐨: I have nothing to show here </h4>
+              <h4 style={{ textAlign: "center" }}>
+                {" "}
+                Cody the 🐨: I have nothing to show here{" "}
+              </h4>
             )}
           </Body>
         </Card>
@@ -254,12 +253,10 @@ export default function Student({ queueData, user }) {
         <Card>
           <Head>Being Helped</Head>
           <Body>
-            
-          <BeingHelped queueData={queueData} />
+            <BeingHelped queueData={queueData} />
           </Body>
         </Card>
       </Container>
     </MUIContainer>
   );
 }
-
