@@ -34,7 +34,7 @@ const SignIn = () => {
     pauseOnHover: true,
     draggable: true,
   })
-  const signInMsg = () => toast.success(' 🐨: Logged in!')
+  const signInMsg = () => toast.success('🐨: Logged in!')
   const introduceCody = () => toast.info('🐨: Hi my name is Cody the Koala and I will be your guide! ')
   const { data } = useSubscription(GET_USERS, {
     suspend: false
@@ -128,12 +128,23 @@ const SignIn = () => {
         </div>
         <GoogleLogin
           className="LoginSignIn"
-          clientId="28861163542-su8up622bc6br2c077qgaqp380g4m9k3.apps.googleusercontent.com"
+          clientId="516160884998-hmnadbna7mhmop6676mg15sandeg5v77.apps.googleusercontent.com"
           buttonText="Login"
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
           cookiePolicy={"single_host_origin"}
         />
+         <Dialog open={modal} onClose={()=>setModal(false)}>
+          <div>
+            <Button onClick={()=>{
+              signUp('student')
+            }}>Student</Button>
+            <Button onClick={()=>{
+              signUp('mentor')
+            }}>Mentor</Button>
+          </div>
+        </Dialog>
+
       </Grid>
     </Grid>
   );

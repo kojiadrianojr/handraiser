@@ -60,6 +60,7 @@ export default class Header extends React.Component {
                 }
             }`
     };
+    toast.info('🐨: You have asked help')
     const options = {
       headers: {
         "x-hasura-admin-secret": process.env.GATSBY_HASURA_GRAPHQL_ADMIN_SECRET

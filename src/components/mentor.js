@@ -211,12 +211,8 @@ export default function Mentor({ queueData }) {
     
   const notify = (data) => {
     var latest;
-    list = data
-    if (data.user.name === list.user.name){
+    list.push(data.user.name)
       latest = list[list.length-1]
-      toast.info(`${list.user.name} asked for help!`)
-    }
-
   }
   return (
     <MUIContainer maxWidth="lg">
