@@ -4,7 +4,7 @@ import styled from "styled-components";
 import IconButton from "@material-ui/core/IconButton";
 import { MoreVert } from "@material-ui/icons";
 import MUIContainer from "@material-ui/core/Container";
-
+import {toast} from 'react-toastify'
 const Container = styled.div`
   display: flex;
   flex-direction: row;
@@ -126,7 +126,31 @@ const Body = styled.div`
   }
 `;
 
+const Notify = ({data}) =>{
+  console.log(data)
+}
+
 export default function Mentor({ queueData }) {
+  toast.configure({
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true
+  });
+  
+  const [count, setCount] = React.useState(0)
+  const [names, addNames] = React.useState([])
+  console.log(names)
+
+  // React.useEffect(() => {
+  //   queueData.map(data => {
+  //     data.status === 'need help' && addNames([...names, data.user.name])
+  //   })
+
+  // }, addNames)
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const removeHelp = (id, class_id) => {
     const body = {
@@ -151,6 +175,7 @@ export default function Mentor({ queueData }) {
       options
     );
   };
+  var list = [];
 
   const updateHelp = (status, id, class_id) => {
     const body = {
@@ -183,7 +208,16 @@ export default function Mentor({ queueData }) {
   function handleClose() {
     setAnchorEl(null);
   }
+    
+  const notify = (data) => {
+    var latest;
+    list = data
+    if (data.user.name === list.user.name){
+      latest = list[list.length-1]
+      toast.info(`${list.user.name} asked for help!`)
+    }
 
+  }
   return (
     <MUIContainer maxWidth="lg">
       <Container>
@@ -191,8 +225,11 @@ export default function Mentor({ queueData }) {
           <Head>Need Helped</Head>
           <Body>
             {queueData.map(needHelp =>
-              needHelp.status === "need help" ? (
+              needHelp.status === "need help" && (
                 <div key={needHelp.user.googleId}>
+                  {notify(needHelp)}
+                  <div style={{display: 'none'}}>
+                  </div>
                   <img src={needHelp.user.imageUrl} alt={needHelp.user.name} />
                   <p>{needHelp.user.name}</p>
                   <div>
@@ -249,7 +286,7 @@ export default function Mentor({ queueData }) {
                     </div>
                   </div>
                 </div>
-              ) : null
+              )
             )}
           </Body>
         </Card>

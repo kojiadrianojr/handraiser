@@ -17,6 +17,7 @@ import Loader from "react-loader-spinner";
 import { Box, Grid } from "@material-ui/core";
 import { borderRadius } from "@material-ui/system";
 
+
 const GET_CLASSES = gql`
   subscription {
     class {
@@ -136,7 +137,6 @@ function Cohorts(props) {
                 margin: "16px"
               }}
             />
-
             <Typography variant="h4" color="inherit">
               {props.location.state.name}
             </Typography>

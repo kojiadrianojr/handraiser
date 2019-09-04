@@ -8,7 +8,8 @@ import { Delete } from "@material-ui/icons";
 import { Box } from "@material-ui/core";
 import {toast} from 'react-toastify'
 import MUIContainer from "@material-ui/core/Container";
-import ReactLoading from 'react-loading'
+import Loader from 'react-loader-spinner'
+
 const Container = styled.div`
   display: flex;
   flex-direction: row;
@@ -159,9 +160,7 @@ const BeingHelped = ({queueData}) => {
       <div key={beingHelped.user.googleId}>
         <img src={beingHelped.user.imageUrl} alt={beingHelped.user.name}/>
         <p>{beingHelped.user.name} </p>
-        <div style={{border: '1px solid black'}}>
-        <ReactLoading type={"cubes"} color={"black"} /> 
-        </div>
+        <Loader type="MutatingDots" color="#3e51b5" height={100} width={100} />
       </div>
       ) : null
     )
@@ -212,7 +211,7 @@ export default function Student({ queueData, user }) {
     <MUIContainer maxWidth="lg">
       <Container>
         <Card>
-          <Head>Need Help</Head>
+          <Head> Need Help</Head>
           <Body>
             {!isEmpty ? (
               queueData.map(needHelp =>
@@ -246,7 +245,9 @@ export default function Student({ queueData, user }) {
                 ) : null
               )
             ) : (
-              <h4 style={{textAlign: 'center'}}> Cody the 🐨: I have nothing to show here </h4>
+                <div style={{display: 'flex'}}>
+                <Loader type="ThreeDots" color="#3e51b5" style={{margin: 'auto auto', position: 'relative'}}/>
+                </div>
             )}
           </Body>
         </Card>
@@ -254,7 +255,6 @@ export default function Student({ queueData, user }) {
         <Card>
           <Head>Being Helped</Head>
           <Body>
-            
           <BeingHelped queueData={queueData} />
           </Body>
         </Card>

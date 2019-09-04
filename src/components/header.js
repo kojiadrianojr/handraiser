@@ -26,13 +26,9 @@ export default class Header extends React.Component {
     super(props);
 
     this.state = {
-      toggleMenu: null
+        toggleMenu: null,
     };
   }
-  showToast = (msg, type) => {
-    toast[`${type}`](` 🐨 ${msg}`);
-  };
-
   handleMenu = event => {
     this.setState({
       toggleMenu: event.currentTarget
@@ -133,7 +129,8 @@ export default class Header extends React.Component {
               buttonText="Logout"
               onLogoutSuccess={e => {
                 navigate("/sign-in");
-                this.showToast("Goodbye user!", "success");
+                toast.success(`🐨: Goodbye ${localStorage.getItem('currUser')}!`)
+                localStorage.removeItem('currUser')
               }}
               render={renderProps => (
                 <MenuItem

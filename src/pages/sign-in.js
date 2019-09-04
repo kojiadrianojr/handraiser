@@ -34,7 +34,8 @@ const SignIn = () => {
     pauseOnHover: true,
     draggable: true,
   })
-  const signInMsg = () => toast.success(' 🐨 Logged in!')
+  const signInMsg = () => toast.success(' 🐨: Logged in!')
+  const introduceCody = () => toast.info('🐨: Hi my name is Cody the Koala and I will be your guide! ')
   const { data } = useSubscription(GET_USERS, {
     suspend: false
   });
@@ -105,8 +106,9 @@ const SignIn = () => {
     var found = null;
     found = data.users.find(user => user.googleId === res.profileObj.googleId)
     if(found) {
-      //localStorage.setItem("currUser", res.profileObj.email)
+      localStorage.setItem("currUser", res.profileObj.name)
       signInMsg()
+      setTimeout(introduceCody(), 6000)
       navigate('/cohorts', {
         state: found
       });
