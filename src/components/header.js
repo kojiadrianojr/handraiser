@@ -10,7 +10,7 @@ import LogoutIcon from '@material-ui/icons/ExitToApp'
 import { navigate } from 'gatsby'
 import { GoogleLogout } from 'react-google-login'
 import axios from 'axios';
-import {toast } from 'react-toastify'
+import {toast} from 'react-toastify'
 
 toast.configure({
     position: "top-right",
@@ -110,6 +110,7 @@ export default class Header extends React.Component {
                             onLogoutSuccess={(e)=> {
                                 navigate("/sign-in")
                                 this.showToast('Goodbye user!','success')
+                               
                             }}
                             render={renderProps => (
                                 <MenuItem onClick={renderProps.onClick} disabled={renderProps.disabled}>

@@ -1,7 +1,9 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { Delete } from "@material-ui/icons";
+import { Box } from "@material-ui/core";
+import {toast} from 'react-toastify'
 
 const Container = styled.div`
   display: flex;
@@ -114,7 +116,35 @@ const style = {
   }
 };
 
+const BeingHelped = ({queueData}) => {
+
+  toast.configure({
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+  })
+  
+  return(
+    queueData.map(beingHelped =>
+      beingHelped.status === "being helped" ? (
+      <div key={beingHelped.user.googleId}>
+        <img src={beingHelped.user.imageUrl} alt={beingHelped.user.name}/>
+        <p>{beingHelped.user.name} </p>
+        <div>
+        <img alt="progress" src="https://media.giphy.com/media/jAYUbVXgESSti/giphy.gif"/>
+        </div>
+      </div>
+      ) : null
+    )
+  )
+}
+
 export default function Student({ queueData, user }) {
+
+
   const [isEmpty, setEmpty] = useState(true)
   var c = 0;
   React.useEffect(() => {
@@ -170,7 +200,7 @@ export default function Student({ queueData, user }) {
                       remove
                     </button>
                   )}
-
+ 
                   {needHelp.user.googleId === user.googleId && (
                     <button className="sm" onClick={removeHelp}>
                       <Delete />
@@ -179,26 +209,16 @@ export default function Student({ queueData, user }) {
                 </div>
               </div>
             ) : null
-          )) : <p>Empty</p>}
+          )) : <h3>Nothing to show here ...</h3>}
         </Body>
       </Card>
-
       <Card>
         <Head style={style.head}>Being Helped</Head>
-        <Body>
-          {queueData.map(beingHelped =>
-            beingHelped.status === "being helped" ? (
-              <div key={beingHelped.user.googleId}>
-                <img
-                  src={beingHelped.user.imageUrl}
-                  alt={beingHelped.user.name}
-                />
-                <p>{beingHelped.user.name}</p>
-              </div>
-            ) : null
-          )}
+        <Body> 
+          <BeingHelped queueData={queueData} />
         </Body>
       </Card>
     </Container>
   );
 }
+
