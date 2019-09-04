@@ -92,6 +92,7 @@ const SignIn = () => {
             console.log(res.data.errors);
           } else {
             localStorage.setItem("handraise", res.accessToken);
+            //localStorage.setItem("info", res.)
             navigate("/cohorts/", {
               state: profile
             });
@@ -104,6 +105,7 @@ const SignIn = () => {
     var found = null;
     found = data.users.find(user => user.googleId === res.profileObj.googleId)
     if(found) {
+      //localStorage.setItem("currUser", res.profileObj.email)
       signInMsg()
       navigate('/cohorts', {
         state: found
