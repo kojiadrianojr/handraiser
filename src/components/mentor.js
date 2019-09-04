@@ -1,14 +1,9 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from "@material-ui/core/IconButton";
 import { MoreVert } from "@material-ui/icons";
-<<<<<<< HEAD
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-=======
 import MUIContainer from "@material-ui/core/Container";
->>>>>>> 033c75e457660494f13c442f3095a250addd1d33
 
 const Container = styled.div`
   display: flex;
@@ -133,7 +128,6 @@ const Body = styled.div`
 
 export default function Mentor({ queueData }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [anchorEl_, setAnchorEl_] = React.useState(null);
   const removeHelp = (id, class_id) => {
     const body = {
       query: `
@@ -190,80 +184,7 @@ export default function Mentor({ queueData }) {
     setAnchorEl(null);
   }
 
-  function handleClick_(event) {
-    setAnchorEl_(event.currentTarget);
-  }
-
-  function handleClose_() {
-    setAnchorEl_(null);
-  }
-
   return (
-<<<<<<< HEAD
-    <Container>
-      <Card>
-        <Head>Need Helped</Head>
-        <Body>
-          {queueData.map(needHelp =>
-            needHelp.status === "need help" ? (
-              <div key={needHelp.user.googleId}>
-                <img src={needHelp.user.imageUrl} alt={needHelp.user.name} />
-                <p>{needHelp.user.name}</p>
-                <div>
-                  {/* <button
-                    className="lg"
-                    onClick={() => removeHelp(needHelp.user.googleId, needHelp.class.class_id)}
-                  >
-                    remove
-                  </button>
-                  <button
-                    className="lg"
-                    onClick={() =>
-                      updateHelp("being helped", needHelp.user.googleId, needHelp.class.class_id)
-                    }
-                  >
-                    help
-                  </button> */}
-                  <IconButton onClick={handleClick}>
-                    <MoreVert />
-                  </IconButton>
-                  <Menu
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={() => handleClose()}
-                  >
-                    <MenuItem onClick={() =>{
-                          updateHelp("being helped", needHelp.user.googleId, needHelp.class.class_id);
-                          handleClose();
-                        }}>
-                      Help
-                    </MenuItem>
-                    <MenuItem onClick={() => {
-                      removeHelp(needHelp.user.googleId, needHelp.class.class_id);
-                      handleClose();
-                      }}>
-                      Remove
-                    </MenuItem>
-                  </Menu>
-                  {/* <div className="dropdown">
-                    <button className="sm drop-btn">
-                      <MoreVert />
-                    </button>
-                    <ul className="drop-menu">
-                      <li
-                        onClick={() =>
-                          updateHelp("being helped", needHelp.user.googleId, needHelp.class.class_id)
-                        }
-                      >
-                        help
-                      </li>
-                      <li onClick={() => removeHelp(needHelp.user.googleId, needHelp.class.class_id)}>
-                        remove
-                      </li>
-                    </ul>
-                  </div> */}
-=======
     <MUIContainer maxWidth="lg">
       <Container>
         <Card>
@@ -277,35 +198,56 @@ export default function Mentor({ queueData }) {
                   <div>
                     <button
                       className="lg"
-                      onClick={() => removeHelp(needHelp.user.googleId, needHelp.class.class_id)}
+                      onClick={() =>
+                        removeHelp(
+                          needHelp.user.googleId,
+                          needHelp.class.class_id
+                        )
+                      }
                     >
                       remove
                     </button>
                     <button
                       className="lg"
                       onClick={() =>
-                        updateHelp("being helped", needHelp.user.googleId, needHelp.class.class_id)}
+                        updateHelp(
+                          "being helped",
+                          needHelp.user.googleId,
+                          needHelp.class.class_id
+                        )
+                      }
                     >
                       help
                     </button>
                     <div className="dropdown">
                       <button className="sm drop-btn">
-                        <MoreVert style={{color: '#7e57c2'}}/>
+                        <MoreVert style={{ color: "#7e57c2" }} />
                       </button>
                       <ul className="drop-menu">
                         <li
                           onClick={() =>
-                            updateHelp("being helped", needHelp.user.googleId, needHelp.class.class_id)}
+                            updateHelp(
+                              "being helped",
+                              needHelp.user.googleId,
+                              needHelp.class.class_id
+                            )
+                          }
                         >
                           help
                         </li>
-                        <li onClick={() => removeHelp(needHelp.user.googleId, needHelp.class.class_id)}>
+                        <li
+                          onClick={() =>
+                            removeHelp(
+                              needHelp.user.googleId,
+                              needHelp.class.class_id
+                            )
+                          }
+                        >
                           remove
                         </li>
                       </ul>
                     </div>
                   </div>
->>>>>>> 033c75e457660494f13c442f3095a250addd1d33
                 </div>
               ) : null
             )}
@@ -324,98 +266,59 @@ export default function Mentor({ queueData }) {
                   />
                   <p>{beingHelped.user.name}</p>
 
-<<<<<<< HEAD
-                <div>
-                  {/* <button
-                    className="lg"
-                    onClick={() =>
-                      updateHelp("need help", beingHelped.user.googleId, beingHelped.class.class_id)
-                    }
-                  >
-                    back to queue
-                  </button>
-                  <button
-                    className="lg"
-                    onClick={() => removeHelp(beingHelped.user.googleId, beingHelped.class.class_id)}
-                  >
-                    done
-                  </button> */}
-                  <IconButton onClick={handleClick_}>
-                    <MoreVert />
-                  </IconButton>
-                  <Menu
-                    anchorEl={anchorEl_}
-                    keepMounted
-                    open={Boolean(anchorEl_)}
-                    onClose={() => handleClose_()}
-                  >
-                    <MenuItem
-                      onClick={() =>{
-                        updateHelp("need help", beingHelped.user.googleId, beingHelped.class.class_id);
-                        handleClose_();
-                      }}
-                    >
-                      Back to queue
-                    </MenuItem>
-                    <MenuItem onClick={() => {
-                      removeHelp(beingHelped.user.googleId, beingHelped.class.class_id)
-                      handleClose_();
-                      }}>
-                      Done
-                    </MenuItem>
-                  </Menu>
-                  {/* <div className="dropdown">
-                    <button className="sm drop-btn">
-                      <MoreVert />
-                    </button>
-                    <ul className="drop-menu">
-                      <li
-                        onClick={() =>
-                          updateHelp("need help", beingHelped.user.googleId, beingHelped.class.class_id)
-                        }
-                      >
-                        back to queue
-                      </li>
-                      <li onClick={() => removeHelp(beingHelped.user.googleId, beingHelped.class.class_id)}>
-                        done
-                      </li>
-                    </ul>
-                  </div> */}
-=======
                   <div>
                     <button
                       className="lg"
                       onClick={() =>
-                        updateHelp("need help", beingHelped.user.googleId, beingHelped.class.class_id)
+                        updateHelp(
+                          "need help",
+                          beingHelped.user.googleId,
+                          beingHelped.class.class_id
+                        )
                       }
                     >
                       back to queue
                     </button>
                     <button
                       className="lg"
-                      onClick={() => removeHelp(beingHelped.user.googleId, beingHelped.class.class_id)}
+                      onClick={() =>
+                        removeHelp(
+                          beingHelped.user.googleId,
+                          beingHelped.class.class_id
+                        )
+                      }
                     >
                       done
                     </button>
                     <div className="dropdown">
                       <button className="sm drop-btn">
-                        <MoreVert style={{color: '#7e57c2'}}/>
+                        <MoreVert style={{ color: "#7e57c2" }} />
                       </button>
                       <ul className="drop-menu">
                         <li
                           onClick={() =>
-                            updateHelp("need help", beingHelped.user.googleId, beingHelped.class.class_id)
+                            updateHelp(
+                              "need help",
+                              beingHelped.user.googleId,
+                              beingHelped.class.class_id
+                            )
                           }
                         >
                           back to queue
                         </li>
-                        <li onClick={() => removeHelp(beingHelped.user.googleId, beingHelped.class.class_id)}>
+                        <li
+                          onClick={() =>
+                            removeHelp(
+                              beingHelped.user.googleId,
+                              beingHelped.class.class_id
+                            )
+                          }
+                        >
                           done
                         </li>
                       </ul>
                     </div>
                   </div>
->>>>>>> 033c75e457660494f13c442f3095a250addd1d33
                 </div>
               ) : null
             )}
