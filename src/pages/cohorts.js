@@ -94,9 +94,6 @@ function Cohorts(props) {
             user={props.location.state}
             handleClickOpen={handleClickOpen}
           />
-          <div className="banner-msg">
-            <Typography variant="h4">Select a cohort.</Typography>
-          </div>
           <Dialog
             fullScreen
             open={open}
