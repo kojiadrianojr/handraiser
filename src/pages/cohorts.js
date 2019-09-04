@@ -95,9 +95,6 @@ function Cohorts(props) {
             user={props.location.state}
             handleClickOpen={handleClickOpen}
           />
-          <div className="banner-msg">
-            <Typography variant="h4">Select a cohort.</Typography>
-          </div>
           <Dialog
             fullScreen
             open={open}
@@ -127,7 +124,8 @@ function Cohorts(props) {
               flexDirection: "column",
               justifyContent: "center",
               alignContent: "center",
-              alignItems: "center"
+              alignItems: "center",
+              backgroundColor: "whitesmoke"
             }}
           >
             <img

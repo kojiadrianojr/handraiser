@@ -44,3 +44,18 @@ export const DividerHead= styled.div`
     align-items: center;
 `;
 
+export const Image = styled.img`
+    width: calc(70% / 2);
+    height: auto;
+    @media ${device.tablet} {
+        width: calc(100% / 2);
+    }
+`;
+
+export const Protector = styled.div`
+    padding-left: 5px;
+    padding-right: 5px;
+    @media ${device.tablet} {
+        display: none;
+    }
+`;
