@@ -123,7 +123,8 @@ function Cohorts(props) {
               flexDirection: "column",
               justifyContent: "center",
               alignContent: "center",
-              alignItems: "center"
+              alignItems: "center",
+              backgroundColor: "whitesmoke"
             }}
           >
             <img
