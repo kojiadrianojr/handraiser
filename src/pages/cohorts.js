@@ -15,6 +15,7 @@ import { useSubscription } from "react-apollo-hooks";
 import Loader from "react-loader-spinner";
 //import CircularProgress from '@material-ui/core/CircularProgress';
 import { Box, Grid } from "@material-ui/core";
+import { borderRadius } from "@material-ui/system";
 
 const GET_CLASSES = gql`
   subscription {
@@ -118,6 +119,33 @@ function Cohorts(props) {
               user={props.location.state}
             />
           </Dialog>
+          <div
+            style={{
+              display: "flex",
+              height: "90vh",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <img
+              src={props.location.state.imageUrl}
+              style={{
+                borderRadius: "50%",
+                margin: "16px"
+              }}
+            />
+
+            <Typography variant="h4" color="inherit">
+              {props.location.state.name}
+            </Typography>
+            <Typography variant="h6" color="inherit">
+              {props.location.state.type}
+            </Typography>
+          </div>
+
+          {console.log(props.location.state)}
         </div>
       ) : null}
     </Box>
