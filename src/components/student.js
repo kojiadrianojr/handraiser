@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import { Delete } from "@material-ui/icons";
 import MUIContainer from "@material-ui/core/Container";
 
@@ -128,7 +128,6 @@ const Body = styled.div`
   }
 `;
 
-
 const style = {
   body: {
     minHeight: "200px"
@@ -142,21 +141,21 @@ const style = {
 };
 
 export default function Student({ queueData, user }) {
-  const [isEmpty, setEmpty] = useState(true)
+  const [isEmpty, setEmpty] = useState(true);
   var c = 0;
   React.useEffect(() => {
     queueData.map(data => {
-      if (!data.status === "need help"){
-        return c = 0;
+      if (!data.status === "need help") {
+        return (c = 0);
       }
-    })
+    });
     queueData.map(data => {
-      if (data.status === "need help"){
+      if (data.status === "need help") {
         c++;
       }
-    })
-     c !== 0? setEmpty(false) : setEmpty(true)
-  })
+    });
+    c !== 0 ? setEmpty(false) : setEmpty(true);
+  });
 
   const removeHelp = class_id => {
     const body = {
@@ -187,27 +186,40 @@ export default function Student({ queueData, user }) {
         <Card>
           <Head>Need Help</Head>
           <Body>
-            {!isEmpty? (queueData.map(needHelp =>
-              needHelp.status === "need help" ? (
-                <div key={needHelp.user.googleId}>
-                  <img src={needHelp.user.imageUrl} alt={needHelp.user.name} />
-                  <p>{needHelp.user.name}</p>
-                  <div>
-                    {needHelp.user.googleId === user.googleId && (
-                      <button className="lg" onClick={()=>removeHelp(needHelp.class.class_id)}>
-                        remove
-                      </button>
-                    )}
+            {!isEmpty ? (
+              queueData.map(needHelp =>
+                needHelp.status === "need help" ? (
+                  <div key={needHelp.user.googleId}>
+                    <img
+                      src={needHelp.user.imageUrl}
+                      alt={needHelp.user.name}
+                    />
+                    <p>{needHelp.user.name}</p>
+                    <div>
+                      {needHelp.user.googleId === user.googleId && (
+                        <button
+                          className="lg"
+                          onClick={() => removeHelp(needHelp.class.class_id)}
+                        >
+                          remove
+                        </button>
+                      )}
 
-                    {needHelp.user.googleId === user.googleId && (
-                      <button className="sm" onClick={()=>removeHelp(needHelp.class.class_id)}>
-                        <Delete style={{color: '#7e57c2'}}/>
-                      </button>
-                    )}
+                      {needHelp.user.googleId === user.googleId && (
+                        <button
+                          className="sm"
+                          onClick={() => removeHelp(needHelp.class.class_id)}
+                        >
+                          <Delete style={{ color: "#7e57c2" }} />
+                        </button>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ) : null
-            )) : <p>Empty</p>}
+                ) : null
+              )
+            ) : (
+              <p>Empty</p>
+            )}
           </Body>
         </Card>
 

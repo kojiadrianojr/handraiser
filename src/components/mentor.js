@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from "@material-ui/core/IconButton";
 import { MoreVert } from "@material-ui/icons";
 import MUIContainer from "@material-ui/core/Container";
 
@@ -198,29 +198,51 @@ export default function Mentor({ queueData }) {
                   <div>
                     <button
                       className="lg"
-                      onClick={() => removeHelp(needHelp.user.googleId, needHelp.class.class_id)}
+                      onClick={() =>
+                        removeHelp(
+                          needHelp.user.googleId,
+                          needHelp.class.class_id
+                        )
+                      }
                     >
                       remove
                     </button>
                     <button
                       className="lg"
                       onClick={() =>
-                        updateHelp("being helped", needHelp.user.googleId, needHelp.class.class_id)}
+                        updateHelp(
+                          "being helped",
+                          needHelp.user.googleId,
+                          needHelp.class.class_id
+                        )
+                      }
                     >
                       help
                     </button>
                     <div className="dropdown">
                       <button className="sm drop-btn">
-                        <MoreVert style={{color: '#7e57c2'}}/>
+                        <MoreVert style={{ color: "#7e57c2" }} />
                       </button>
                       <ul className="drop-menu">
                         <li
                           onClick={() =>
-                            updateHelp("being helped", needHelp.user.googleId, needHelp.class.class_id)}
+                            updateHelp(
+                              "being helped",
+                              needHelp.user.googleId,
+                              needHelp.class.class_id
+                            )
+                          }
                         >
                           help
                         </li>
-                        <li onClick={() => removeHelp(needHelp.user.googleId, needHelp.class.class_id)}>
+                        <li
+                          onClick={() =>
+                            removeHelp(
+                              needHelp.user.googleId,
+                              needHelp.class.class_id
+                            )
+                          }
+                        >
                           remove
                         </li>
                       </ul>
@@ -248,30 +270,50 @@ export default function Mentor({ queueData }) {
                     <button
                       className="lg"
                       onClick={() =>
-                        updateHelp("need help", beingHelped.user.googleId, beingHelped.class.class_id)
+                        updateHelp(
+                          "need help",
+                          beingHelped.user.googleId,
+                          beingHelped.class.class_id
+                        )
                       }
                     >
                       back to queue
                     </button>
                     <button
                       className="lg"
-                      onClick={() => removeHelp(beingHelped.user.googleId, beingHelped.class.class_id)}
+                      onClick={() =>
+                        removeHelp(
+                          beingHelped.user.googleId,
+                          beingHelped.class.class_id
+                        )
+                      }
                     >
                       done
                     </button>
                     <div className="dropdown">
                       <button className="sm drop-btn">
-                        <MoreVert style={{color: '#7e57c2'}}/>
+                        <MoreVert style={{ color: "#7e57c2" }} />
                       </button>
                       <ul className="drop-menu">
                         <li
                           onClick={() =>
-                            updateHelp("need help", beingHelped.user.googleId, beingHelped.class.class_id)
+                            updateHelp(
+                              "need help",
+                              beingHelped.user.googleId,
+                              beingHelped.class.class_id
+                            )
                           }
                         >
                           back to queue
                         </li>
-                        <li onClick={() => removeHelp(beingHelped.user.googleId, beingHelped.class.class_id)}>
+                        <li
+                          onClick={() =>
+                            removeHelp(
+                              beingHelped.user.googleId,
+                              beingHelped.class.class_id
+                            )
+                          }
+                        >
                           done
                         </li>
                       </ul>
