@@ -28,31 +28,6 @@ export default class CohortClass extends React.Component {
     return (
       <React.Fragment>
         <MainContainer>
-          <SearchBoxNav>
-            <Paper
-              style={{
-                padding: "2px 4px",
-                display: "flex",
-                alignItems: "center",
-                width: "400px"
-              }}
-            >
-              <IconButton style={{ padding: "10px" }} aria-label="menu">
-                <MenuIcon />
-              </IconButton>
-              <InputBase
-                style={{ marginLeft: 8, flex: 1 }}
-                placeholder="Search Cohort Class"
-              />
-              <IconButton style={{ padding: "10px" }} aria-label="search">
-                <SearchIcon />
-              </IconButton>
-              <Divider
-                style={{ height: 28, margin: 4 }}
-                orientation="vertical"
-              />
-            </Paper>
-          </SearchBoxNav>
           <ResultNav>
             <Typography variant="caption">
               About {this.props.classList.length} results.
