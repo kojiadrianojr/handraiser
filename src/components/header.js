@@ -1,18 +1,16 @@
 import React from "react";
-import { HeaderStyle, DividerHead } from "../css/style";
+import { HeaderStyle, DividerHead, Image, Protector } from "../css/style";
 import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import LogoutIcon from "@material-ui/icons/ExitToApp";
 import { navigate } from "gatsby";
 import { GoogleLogout } from "react-google-login";
 import axios from "axios";
 import { toast } from "react-toastify";
 import logo from "../assets/logo.png";
-import styled from "styled-components";
 
 toast.configure({
   position: "top-right",
@@ -22,11 +20,6 @@ toast.configure({
   pauseOnHover: true,
   draggable: true
 });
-
-const Image = styled.img`
-  width: calc(100% / 2 - 50px);
-  height: auto;
-`;
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -89,9 +82,11 @@ export default class Header extends React.Component {
         <HeaderStyle>
           <DividerHead>
             <Image src={logo} alt="logo"/>
-            <Typography style={{ float: "left" }} variant="h6" color="inherit">
-              Handraiser
-            </Typography>
+            <Protector>
+              <Typography style={{ float: "left"}} variant="h6" color="inherit">
+                Handraiser
+              </Typography>
+            </Protector>
           </DividerHead>
           <IconButton
             onClick={this.handleMenu}
